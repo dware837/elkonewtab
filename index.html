@@ -93,6 +93,7 @@
     .main-row {
       display: grid;
       grid-template-columns: 240px 1fr 320px;
+      grid-template-rows: auto auto;
       gap: 10px;
       align-items: start;
     }
@@ -103,6 +104,23 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+      grid-column: 1;
+      grid-row: 1;
+      align-self: stretch;
+    }
+
+    .left-col .box {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .s4 #swatches {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex: 1;
     }
 
     /* ── Center column ── */
@@ -111,6 +129,9 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+      grid-column: 2;
+      grid-row: 1;
+      align-self: stretch;
     }
 
     /* ── Right column ── */
@@ -119,6 +140,25 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+      grid-column: 3;
+      grid-row: 1 / 3;
+    }
+
+    /* ── Wikipedia bar ── */
+
+    .s8-bar {
+      grid-column: 1 / 3;
+      grid-row: 2;
+    }
+
+    .otd-events-wrap {
+      display: flex;
+      gap: 20px;
+    }
+
+    .otd-events-wrap .otd-event {
+      flex: 1;
+      margin-bottom: 0;
     }
 
     /* ── Search bar ── */
@@ -142,7 +182,9 @@
       width: 100%;
     }
 
-    /* ── Section 3: bookmarks ── */
+    .s2 input::placeholder { color: var(--e04); }
+
+
 
     .s3 {
       display: grid;
@@ -176,7 +218,7 @@
       padding: 2px 0;
     }
 
-    .bm-col ul li a:hover { color: var(--e0A); }
+    .bm-col ul li a:hover { color: var(--e0A); text-decoration: underline; }
 
     /* ── Images ── */
 
@@ -186,6 +228,8 @@
       line-height: 0;
     }
 
+    .s6 { flex: 1; }
+
     .s6 img, .s7 img {
       width: 100%;
       display: block;
@@ -194,7 +238,7 @@
 
     /* ── Section 4: palette ── */
 
-    .s4 { padding: 10px 14px; }
+    .s4 { padding: 10px 14px; display: flex; flex-direction: column; justify-content: center; }
 
     .s4-header {
       font-size: 11px;
@@ -204,15 +248,16 @@
       margin-bottom: 10px;
       padding-bottom: 5px;
       border-bottom: 1px solid var(--e02);
+      text-align: center;
     }
 
-    .swatch-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .swatch-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; justify-content: center; }
 
-    .swatch { width: 16px; height: 16px; flex-shrink: 0; border: 1px solid var(--e02); }
+    .swatch { width: 18px; height: 18px; flex-shrink: 0; border: 1px solid var(--e02); }
 
-    .swatch-label { font-size: 11px; color: var(--e04); min-width: 50px; }
+    .swatch-label { font-size: 12px; color: var(--e04); min-width: 54px; }
 
-    .swatch-hex { font-size: 11px; color: var(--e03); }
+    .swatch-hex { font-size: 12px; color: var(--e03); }
 
     /* ── Section 5: poem ── */
 
@@ -282,7 +327,7 @@
       text-decoration: none;
     }
 
-    .otd-link:hover { color: var(--e0A); }
+    .otd-link:hover { color: var(--e0A); text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -320,22 +365,18 @@
     <!-- Main row -->
     <div class="main-row">
 
-      <!-- Left: palette + on this day -->
+      <!-- Left: palette -->
       <div class="left-col">
         <div class="box s4">
           <div class="s4-header">ELKO Palette</div>
           <div id="swatches"></div>
-        </div>
-        <div class="box s8">
-          <div class="otd-header" id="otd-date">On this day</div>
-          <div id="otd-events"><div class="otd-loading">Loading...</div></div>
         </div>
       </div>
 
       <!-- Center: search + bookmarks + flower -->
       <div class="center-col">
         <div class="box s2">
-          <input type="text" id="searchInput" autocomplete="off" />
+          <input type="text" id="searchInput" autocomplete="off" placeholder="search..." />
         </div>
         <div class="box s3">
           <div class="bm-col">
@@ -396,6 +437,12 @@ the packs of yellow-eyed wolves that are also
 <em>have you noticed?</em> gone now.</div>
           <div class="poem-attr">— Mary Oliver, 1983</div>
         </div>
+      </div>
+
+      <!-- Wikipedia: on this day, spanning palette + center columns -->
+      <div class="box s8 s8-bar">
+        <div class="otd-header" id="otd-date">On this day</div>
+        <div id="otd-events"><div class="otd-loading">Loading...</div></div>
       </div>
 
     </div>
@@ -533,7 +580,7 @@ the packs of yellow-eyed wolves that are also
         .map(x => x.e)
         .sort((a, b) => a.year - b.year);
 
-      container.innerHTML = picked.map(e => {
+      container.innerHTML = '<div class="otd-events-wrap">' + picked.map(e => {
         const page = e.pages && e.pages[0];
         const url = page
           ? page.content_urls.desktop.page
@@ -547,7 +594,7 @@ the packs of yellow-eyed wolves that are also
               <a class="otd-link" href="${url}" target="_blank" rel="noopener">Wikipedia ↗</a>
             </div>
           </div>`;
-      }).join('');
+      }).join('') + '</div>';
     } catch (err) {
       container.innerHTML = '<p style="font-size:11px;color:var(--e03)">Could not load events.</p>';
     }
