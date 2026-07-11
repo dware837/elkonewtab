@@ -142,6 +142,7 @@
       gap: 10px;
       grid-column: 3;
       grid-row: 1 / 3;
+      align-self: stretch;
     }
 
     /* ── Wikipedia bar ── */
@@ -259,6 +260,21 @@
 
     .swatch-hex { font-size: 12px; color: var(--e03); }
 
+    .theme-toggle-wrap { text-align: center; margin-top: 10px; }
+
+    .theme-toggle-btn {
+      display: inline-block;
+      padding: 4px 10px;
+      border: 1px solid var(--e02);
+      color: #C2AE7C;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .theme-toggle-btn:hover { color: var(--e0A); border-color: var(--e03); }
+
     /* ── Section 5: poem ── */
 
     .s5 { padding: 10px 14px; }
@@ -278,6 +294,40 @@
     .poem { font-size: 12px; color: var(--e06); line-height: 1.8; white-space: pre-line; }
 
     .poem-attr { font-size: 11px; color: var(--e03); margin-top: 10px; font-style: italic; }
+
+    /* ── Section 9: next match ── */
+
+    .s9 {
+      padding: 10px 14px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .s9-header {
+      font-size: 11px;
+      color: var(--e0D);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 10px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid var(--e02);
+    }
+
+    .s9-opponent { font-size: 15px; color: #6F8996; margin-bottom: 6px; }
+
+    .s9-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--e06);
+      margin-bottom: 4px;
+    }
+
+    .s9-row .s9-label { color: var(--e04); }
+
+    .s9-venue { font-size: 11px; color: var(--e03); margin-top: 6px; font-style: italic; }
 
     /* ── On this day ── */
 
@@ -370,6 +420,9 @@
         <div class="box s4">
           <div class="s4-header">ELKO Palette</div>
           <div id="swatches"></div>
+          <div class="theme-toggle-wrap">
+            <span id="theme-toggle" class="theme-toggle-btn">☀ Light</span>
+          </div>
         </div>
       </div>
 
@@ -439,6 +492,13 @@ the packs of yellow-eyed wolves that are also
 <em>have you noticed?</em> gone now.</div>
           <div class="poem-attr">— Mary Oliver, 1983</div>
         </div>
+        <div class="box s9">
+          <div class="s9-header">Next Match — Cambridge Utd</div>
+          <div class="s9-opponent" id="cu-opponent">Loading...</div>
+          <div class="s9-row"><span class="s9-label">Date</span><span id="cu-date">—</span></div>
+          <div class="s9-row"><span class="s9-label">Kickoff</span><span id="cu-time">—</span></div>
+          <div class="s9-venue" id="cu-venue">—</div>
+        </div>
       </div>
 
       <!-- Wikipedia: on this day, spanning palette + center columns -->
@@ -453,7 +513,7 @@ the packs of yellow-eyed wolves that are also
 
 <script>
   // ── Palette ──────────────────────────────────────────────
-  const palette = [
+  const darkPalette = [
     { slot: 'base00', hex: '#1A1814' },
     { slot: 'base01', hex: '#262420' },
     { slot: 'base02', hex: '#38332C' },
@@ -472,16 +532,54 @@ the packs of yellow-eyed wolves that are also
     { slot: 'base0F', hex: '#B38B99' },
   ];
 
+  const lightPalette = [
+    { slot: 'base00', hex: '#1A1814' },
+    { slot: 'base01', hex: '#262420' },
+    { slot: 'base02', hex: '#3D372F' },
+    { slot: 'base03', hex: '#5C441F' },
+    { slot: 'base04', hex: '#D1BC7D' },
+    { slot: 'base05', hex: '#D9CBA0' },
+    { slot: 'base06', hex: '#E3D8B6' },
+    { slot: 'base07', hex: '#EDE5CE' },
+    { slot: 'base08', hex: '#A85240' },
+    { slot: 'base09', hex: '#786F3A' },
+    { slot: 'base0A', hex: '#5E733E' },
+    { slot: 'base0B', hex: '#468A6D' },
+    { slot: 'base0C', hex: '#3E6C82' },
+    { slot: 'base0D', hex: '#965E2D' },
+    { slot: 'base0E', hex: '#704D73' },
+    { slot: 'base0F', hex: '#8F5160' },
+  ];
+
   const swatchContainer = document.getElementById('swatches');
-  palette.forEach(c => {
-    const row = document.createElement('div');
-    row.className = 'swatch-row';
-    row.innerHTML =
-      `<div class="swatch" style="background:${c.hex}"></div>` +
-      `<span class="swatch-label">${c.slot}</span>` +
-      `<span class="swatch-hex">${c.hex}</span>`;
-    swatchContainer.appendChild(row);
+  const themeToggle = document.getElementById('theme-toggle');
+
+  function renderSwatches(pal) {
+    swatchContainer.innerHTML = '';
+    pal.forEach(c => {
+      const row = document.createElement('div');
+      row.className = 'swatch-row';
+      row.innerHTML =
+        `<div class="swatch" style="background:${c.hex}"></div>` +
+        `<span class="swatch-label">${c.slot}</span>` +
+        `<span class="swatch-hex">${c.hex}</span>`;
+      swatchContainer.appendChild(row);
+    });
+  }
+
+  function applyTheme(name) {
+    const pal = name === 'light' ? lightPalette : darkPalette;
+    renderSwatches(pal);
+    themeToggle.textContent = name === 'light' ? '☾ Dark' : '☀ Light';
+    localStorage.setItem('elko-theme', name);
+  }
+
+  themeToggle.addEventListener('click', () => {
+    const current = localStorage.getItem('elko-theme') || 'dark';
+    applyTheme(current === 'dark' ? 'light' : 'dark');
   });
+
+  applyTheme(localStorage.getItem('elko-theme') || 'dark');
 
   // ── Clock ────────────────────────────────────────────────
   function updateClock() {
@@ -600,6 +698,87 @@ the packs of yellow-eyed wolves that are also
     } catch (err) {
       container.innerHTML = '<p style="font-size:11px;color:var(--e03)">Could not load events.</p>';
     }
+  })();
+
+  // ── Cambridge United next match ─────────────────────────
+  // Full EFL League One 2026/27 fixture list (dates + home/away).
+  // Kickoff times are only confirmed by the EFL a few weeks before
+  // each match, except the season opener; unconfirmed ones show "TBC".
+  // When adding a newly confirmed kickoff, subtract 8 hours from the
+  // UK time to get Pacific Time (holds year round: BST-8=PDT, GMT-8=PST).
+  const cuFixtures = [
+    { date: '2026-08-15', opp: 'Wigan Athletic',      venue: 'H', time: '7:00 AM' },
+    { date: '2026-08-22', opp: 'Bromley',              venue: 'A', time: null },
+    { date: '2026-08-29', opp: 'Huddersfield Town',    venue: 'H', time: null },
+    { date: '2026-09-01', opp: 'Bradford City',        venue: 'A', time: null },
+    { date: '2026-09-05', opp: 'Burton Albion',        venue: 'A', time: null },
+    { date: '2026-09-12', opp: 'Reading',               venue: 'H', time: null },
+    { date: '2026-09-19', opp: 'Oxford United',        venue: 'A', time: null },
+    { date: '2026-09-26', opp: 'AFC Wimbledon',        venue: 'H', time: null },
+    { date: '2026-10-03', opp: 'Sheffield Wednesday',  venue: 'A', time: null },
+    { date: '2026-10-10', opp: 'Blackpool',             venue: 'H', time: null },
+    { date: '2026-10-17', opp: 'Barnsley',              venue: 'A', time: null },
+    { date: '2026-10-20', opp: 'Wycombe Wanderers',    venue: 'H', time: null },
+    { date: '2026-10-24', opp: 'Plymouth Argyle',      venue: 'H', time: null },
+    { date: '2026-10-31', opp: 'Leyton Orient',        venue: 'A', time: null },
+    { date: '2026-11-14', opp: 'Luton Town',            venue: 'A', time: null },
+    { date: '2026-11-21', opp: 'Stockport County',     venue: 'H', time: null },
+    { date: '2026-11-28', opp: 'Peterborough United',  venue: 'A', time: null },
+    { date: '2026-12-01', opp: 'Leicester City',       venue: 'H', time: null },
+    { date: '2026-12-12', opp: 'MK Dons',               venue: 'A', time: null },
+    { date: '2026-12-19', opp: 'Stevenage',             venue: 'H', time: null },
+    { date: '2026-12-26', opp: 'Notts County',          venue: 'A', time: null },
+    { date: '2026-12-29', opp: 'Doncaster Rovers',      venue: 'H', time: null },
+    { date: '2027-01-01', opp: 'Mansfield Town',        venue: 'H', time: null },
+    { date: '2027-01-09', opp: 'Stevenage',             venue: 'A', time: null },
+    { date: '2027-01-16', opp: 'Barnsley',              venue: 'H', time: null },
+    { date: '2027-01-19', opp: 'Wycombe Wanderers',    venue: 'A', time: null },
+    { date: '2027-01-23', opp: 'Plymouth Argyle',      venue: 'A', time: null },
+    { date: '2027-01-30', opp: 'Leyton Orient',        venue: 'H', time: null },
+    { date: '2027-02-06', opp: 'Huddersfield Town',    venue: 'A', time: null },
+    { date: '2027-02-09', opp: 'Bradford City',        venue: 'H', time: null },
+    { date: '2027-02-13', opp: 'Burton Albion',        venue: 'H', time: null },
+    { date: '2027-02-20', opp: 'Reading',               venue: 'A', time: null },
+    { date: '2027-02-27', opp: 'Peterborough United',  venue: 'H', time: null },
+    { date: '2027-03-06', opp: 'Wigan Athletic',       venue: 'A', time: null },
+    { date: '2027-03-13', opp: 'Bromley',               venue: 'H', time: null },
+    { date: '2027-03-20', opp: 'Stockport County',     venue: 'A', time: null },
+    { date: '2027-03-26', opp: 'Mansfield Town',        venue: 'A', time: null },
+    { date: '2027-03-29', opp: 'MK Dons',                venue: 'H', time: null },
+    { date: '2027-04-03', opp: 'Doncaster Rovers',      venue: 'A', time: null },
+    { date: '2027-04-10', opp: 'Notts County',          venue: 'H', time: null },
+    { date: '2027-04-13', opp: 'AFC Wimbledon',        venue: 'A', time: null },
+    { date: '2027-04-17', opp: 'Oxford United',        venue: 'H', time: null },
+    { date: '2027-04-24', opp: 'Blackpool',              venue: 'A', time: null },
+    { date: '2027-04-27', opp: 'Sheffield Wednesday',  venue: 'H', time: null },
+    { date: '2027-05-01', opp: 'Luton Town',             venue: 'H', time: null },
+    { date: '2027-05-08', opp: 'Leicester City',        venue: 'A', time: null },
+  ];
+
+  (function renderNextMatch() {
+    const todayStr = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Los_Angeles' }); // YYYY-MM-DD
+    const next = cuFixtures.find(f => f.date >= todayStr);
+
+    const oppEl = document.getElementById('cu-opponent');
+    const dateEl = document.getElementById('cu-date');
+    const timeEl = document.getElementById('cu-time');
+    const venueEl = document.getElementById('cu-venue');
+
+    if (!next) {
+      oppEl.textContent = 'Season complete';
+      dateEl.textContent = '—';
+      timeEl.textContent = '—';
+      venueEl.textContent = '';
+      return;
+    }
+
+    const d = new Date(next.date + 'T12:00:00');
+    const dateLabel = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+
+    oppEl.textContent = next.opp;
+    dateEl.textContent = dateLabel;
+    timeEl.textContent = next.time ? next.time + ' PT' : 'TBC';
+    venueEl.textContent = next.venue === 'H' ? 'Cledara Abbey Stadium (Home)' : 'Away';
   })();
 
   // ── Search ───────────────────────────────────────────────
