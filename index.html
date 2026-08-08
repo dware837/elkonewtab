@@ -92,7 +92,7 @@
 
     .main-row {
       display: grid;
-      grid-template-columns: 240px 1fr 320px;
+      grid-template-columns: 190px 1fr 320px;
       grid-template-rows: auto auto;
       gap: 10px;
       align-items: start;
@@ -142,7 +142,7 @@
       gap: 10px;
       grid-column: 3;
       grid-row: 1 / 3;
-      align-self: stretch;
+      align-self: start;
     }
 
     /* ── Wikipedia bar ── */
@@ -189,7 +189,7 @@
 
     .s3 {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 14px;
       padding: 12px 14px;
     }
@@ -223,16 +223,17 @@
 
     /* ── Images ── */
 
-    .s6, .s7 {
+    .s6 {
       padding: 0;
       overflow: hidden;
       line-height: 0;
+      flex: 1;
+      min-height: 0;
     }
 
-    .s6 { flex: 1; }
-
-    .s6 img, .s7 img {
+    .s6 img {
       width: 100%;
+      height: 100%;
       display: block;
       object-fit: cover;
     }
@@ -299,10 +300,12 @@
 
     .s9 {
       padding: 10px 14px;
-      flex: 1;
+      height: 270px;
+      flex: 0 0 270px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
+      overflow: hidden;
     }
 
     .s9-header {
@@ -313,6 +316,20 @@
       margin-bottom: 10px;
       padding-bottom: 5px;
       border-bottom: 1px solid var(--e02);
+    }
+
+    .s9-fixture + .s9-fixture {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--e02);
+    }
+
+    .s9-club {
+      font-size: 10px;
+      color: var(--e0D);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
     }
 
     .s9-opponent { font-size: 15px; color: #6F8996; margin-bottom: 6px; }
@@ -442,13 +459,24 @@
             </ul>
           </div>
           <div class="bm-col">
+            <div class="bm-col-header">Football</div>
+            <ul>
+              <li><a href="https://www.paramountplus.com/shows/english-football-league/">EFL</a></li>
+              <li><a href="https://plus.nwslsoccer.com/home?from=%2F&utm_source=nwsl&utm_medium=homepage&utm_campaign=nwslsoccer">NWSL</a></li>
+              <li><a href="https://www.paramountplus.com/shows/scottish-professional-football-league/">SPFL</a></li>
+               <li><a href="https://www.youtube.com/@USL/streams">USL</a></li>
+              <li><a href="https://www.youtube.com/playlist?list=PLxXrgDYBukhjV3lzPVqDhmcllCe-5BG2A">WSL 1</a></li>
+              <li><a href="https://www.youtube.com/playlist?list=PLgshjza0I1uOjXDWHfJLMAkEd9eiSclsf">WSL 2</a></li>
+            </ul>
+          </div>
+          <div class="bm-col">
             <div class="bm-col-header">Media</div>
             <ul>
               <li><a href="https://www.thebakersfieldguy.com/archive">Bakersfield Newsletter</a></li>
               <li><a href="https://lichess.org/">Chess</a></li>
-              <li><a href="https://www.geoguessr.com/">Geoguessr</a></li>
               <li><a href="http://localhost:8096/web/#/home">Jellyfin</a></li>
               <li><a href="https://rateyourmusic.com/~valuska">RYM</a></li>
+               <li><a href="https://substack.com/inbox">Substack</a></li>
               <li><a href="https://www.youtube.com/">YouTube</a></li>
             </ul>
           </div>
@@ -470,11 +498,8 @@
         </div>
       </div>
 
-      <!-- Right: point image + poem -->
+      <!-- Right: poem + next matches -->
       <div class="right-col">
-        <div class="box s7">
-          <img src="point.jpg" alt="" />
-        </div>
         <div class="box s5">
           <div class="s5-header">Verse of the Month</div>
           <div class="poem-title">from Ghosts</div>
@@ -493,11 +518,21 @@ the packs of yellow-eyed wolves that are also
           <div class="poem-attr">— Mary Oliver, 1983</div>
         </div>
         <div class="box s9">
-          <div class="s9-header">Next Match — Cambridge Utd</div>
-          <div class="s9-opponent" id="cu-opponent">Loading...</div>
-          <div class="s9-row"><span class="s9-label">Date</span><span id="cu-date">—</span></div>
-          <div class="s9-row"><span class="s9-label">Kickoff</span><span id="cu-time">—</span></div>
-          <div class="s9-venue" id="cu-venue">—</div>
+          <div class="s9-header">Next Matches</div>
+          <div class="s9-fixture">
+            <div class="s9-club">Cambridge United</div>
+            <div class="s9-opponent" id="cu-opponent">Loading...</div>
+            <div class="s9-row"><span class="s9-label">Date</span><span id="cu-date">—</span></div>
+            <div class="s9-row"><span class="s9-label">Kickoff</span><span id="cu-time">—</span></div>
+            <div class="s9-venue" id="cu-venue">—</div>
+          </div>
+          <div class="s9-fixture">
+            <div class="s9-club">Partick Thistle</div>
+            <div class="s9-opponent" id="pt-opponent">Loading...</div>
+            <div class="s9-row"><span class="s9-label">Date</span><span id="pt-date">—</span></div>
+            <div class="s9-row"><span class="s9-label">Kickoff</span><span id="pt-time">—</span></div>
+            <div class="s9-venue" id="pt-venue">—</div>
+          </div>
         </div>
       </div>
 
@@ -700,12 +735,67 @@ the packs of yellow-eyed wolves that are also
     }
   })();
 
-  // ── Cambridge United next match ─────────────────────────
-  // Full EFL League One 2026/27 fixture list (dates + home/away).
-  // Kickoff times are only confirmed by the EFL a few weeks before
-  // each match, except the season opener; unconfirmed ones show "TBC".
-  // When adding a newly confirmed kickoff, subtract 8 hours from the
-  // UK time to get Pacific Time (holds year round: BST-8=PDT, GMT-8=PST).
+  // ── Grounds ─────────────────────────────────────────────
+  // Home ground for every club either side plays this season, used to
+  // name the venue for away fixtures. Keys must match the "opp" strings
+  // in the fixture arrays exactly. Unknown clubs fall back to "Away".
+  // Where a ground has both a traditional and a sponsored name, the
+  // traditional one is used, since sponsors change and the old names
+  // don't. A few grounds have only ever had sponsor names; those are
+  // marked so you know they may go stale.
+  const grounds = {
+    // Scottish Championship
+    'Arbroath':             'Gayfield Park',
+    'Ayr United':           'Somerset Park',
+    'Dunfermline Athletic': 'East End Park',
+    'Greenock Morton':      'Cappielow Park',
+    'Hibernian':            'Easter Road',
+    'Inverness CT':         'Caledonian Stadium',
+    'Livingston':           'Almondvale Stadium',
+    'Partick Thistle':      'Firhill Stadium',
+    "Queen's Park":         'Lesser Hampden',
+    'Raith Rovers':         "Stark's Park",
+    'Stenhousemuir':        'Ochilview Park',
+    // EFL League One
+    'AFC Wimbledon':        'Plough Lane',
+    'Barnsley':             'Oakwell',
+    'Blackpool':            'Bloomfield Road',
+    'Bradford City':        'Valley Parade',
+    'Bromley':              'Hayes Lane',
+    'Burton Albion':        'Pirelli Stadium',
+    'Cambridge United':     'Cledara Abbey Stadium',
+    'Doncaster Rovers':     'Eco-Power Stadium',      // sponsor name only
+    'Huddersfield Town':    'Accu Stadium',           // sponsor name only
+    'Leicester City':       'King Power Stadium',     // sponsor name only
+    'Leyton Orient':        'Brisbane Road',
+    'Luton Town':           'Kenilworth Road',
+    'MK Dons':              'Stadium MK',
+    'Mansfield Town':       'Field Mill',
+    'Notts County':         'Meadow Lane',
+    'Oxford United':        'Kassam Stadium',
+    'Peterborough United':  'London Road',
+    'Plymouth Argyle':      'Home Park',
+    'Reading':              'Madejski Stadium',
+    'Sheffield Wednesday':  'Hillsborough',
+    'Stevenage':            'Broadhall Way',
+    'Stockport County':     'Edgeley Park',
+    'Wigan Athletic':       'Brick Community Stadium', // sponsor name only
+    'Wycombe Wanderers':    'Adams Park',
+  };
+
+  // ── Fixtures ────────────────────────────────────────────
+  // Times are stored already converted to Pacific.
+  //
+  // Converting a UK kickoff: subtract 8 hours for most of the year
+  // (BST-8=PDT, GMT-8=PST), BUT subtract only 7 hours during the two
+  // windows where the UK and US have not both switched yet:
+  //   25 Oct 2026 – 1 Nov 2026   (UK on GMT, US still on PDT)
+  //   14 Mar 2027 – 28 Mar 2027  (US on PDT, UK still on GMT)
+  // Fixtures inside those windows are marked "DST gap" below.
+  //
+  // Cambridge United — EFL League One 2026/27 (dates + home/away).
+  // The EFL only confirms kickoff times a few weeks out, except the
+  // season opener; unconfirmed ones are null and render as "TBC".
   const cuFixtures = [
     { date: '2026-08-15', opp: 'Wigan Athletic',      venue: 'H', time: '7:00 AM' },
     { date: '2026-08-22', opp: 'Bromley',              venue: 'A', time: null },
@@ -755,14 +845,55 @@ the packs of yellow-eyed wolves that are also
     { date: '2027-05-08', opp: 'Leicester City',        venue: 'A', time: null },
   ];
 
-  (function renderNextMatch() {
-    const todayStr = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Los_Angeles' }); // YYYY-MM-DD
-    const next = cuFixtures.find(f => f.date >= todayStr);
+  // Partick Thistle — William Hill Championship 2026/27, plus any
+  // confirmed cup ties (marked with "comp"). Championship kickoffs are
+  // confirmed at the time of publication, so all times are filled in.
+  const ptFixtures = [
+    { date: '2026-08-16', opp: 'Hibernian',              venue: 'A', time: '6:00 AM',  comp: 'Premier Sports Cup' },
+    { date: '2026-08-21', opp: 'Inverness CT',           venue: 'A', time: '11:30 AM' },
+    { date: '2026-08-29', opp: "Queen's Park",           venue: 'H', time: '7:00 AM' },
+    { date: '2026-09-05', opp: 'Ayr United',             venue: 'H', time: '7:00 AM' },
+    { date: '2026-09-12', opp: 'Stenhousemuir',          venue: 'A', time: '7:00 AM' },
+    { date: '2026-09-19', opp: 'Raith Rovers',           venue: 'H', time: '7:00 AM' },
+    { date: '2026-09-25', opp: 'Dunfermline Athletic',   venue: 'A', time: '11:45 AM' },
+    { date: '2026-10-03', opp: 'Arbroath',               venue: 'H', time: '7:00 AM' },
+    { date: '2026-10-10', opp: 'Livingston',             venue: 'A', time: '7:00 AM' },
+    { date: '2026-10-17', opp: 'Ayr United',             venue: 'A', time: '7:00 AM' },
+    { date: '2026-10-24', opp: 'Stenhousemuir',          venue: 'H', time: '7:00 AM' },
+    { date: '2026-10-31', opp: 'Greenock Morton',        venue: 'H', time: '8:00 AM' }, // DST gap
+    { date: '2026-11-07', opp: "Queen's Park",           venue: 'A', time: '7:00 AM' },
+    { date: '2026-11-14', opp: 'Inverness CT',           venue: 'H', time: '7:00 AM' },
+    { date: '2026-11-21', opp: 'Raith Rovers',           venue: 'A', time: '7:00 AM' },
+    { date: '2026-12-05', opp: 'Dunfermline Athletic',   venue: 'H', time: '7:00 AM' },
+    { date: '2026-12-12', opp: 'Arbroath',               venue: 'A', time: '7:00 AM' },
+    { date: '2026-12-19', opp: 'Ayr United',             venue: 'H', time: '7:00 AM' },
+    { date: '2026-12-26', opp: "Queen's Park",           venue: 'H', time: '7:00 AM' },
+    { date: '2027-01-02', opp: 'Stenhousemuir',          venue: 'A', time: '7:00 AM' },
+    { date: '2027-01-09', opp: 'Livingston',             venue: 'H', time: '7:00 AM' },
+    { date: '2027-01-23', opp: 'Greenock Morton',        venue: 'A', time: '7:00 AM' },
+    { date: '2027-01-30', opp: 'Inverness CT',           venue: 'A', time: '7:00 AM' },
+    { date: '2027-02-13', opp: 'Raith Rovers',           venue: 'H', time: '7:00 AM' },
+    { date: '2027-02-20', opp: 'Dunfermline Athletic',   venue: 'A', time: '7:00 AM' },
+    { date: '2027-02-27', opp: 'Arbroath',               venue: 'H', time: '7:00 AM' },
+    { date: '2027-03-06', opp: 'Ayr United',             venue: 'A', time: '7:00 AM' },
+    { date: '2027-03-13', opp: "Queen's Park",           venue: 'A', time: '7:00 AM' },
+    { date: '2027-03-20', opp: 'Stenhousemuir',          venue: 'H', time: '8:00 AM' }, // DST gap
+    { date: '2027-03-27', opp: 'Raith Rovers',           venue: 'A', time: '8:00 AM' }, // DST gap
+    { date: '2027-04-03', opp: 'Inverness CT',           venue: 'H', time: '7:00 AM' },
+    { date: '2027-04-10', opp: 'Greenock Morton',        venue: 'H', time: '7:00 AM' },
+    { date: '2027-04-17', opp: 'Livingston',             venue: 'A', time: '7:00 AM' },
+    { date: '2027-04-24', opp: 'Dunfermline Athletic',   venue: 'H', time: '7:00 AM' },
+    { date: '2027-04-30', opp: 'Arbroath',               venue: 'A', time: '11:45 AM' },
+  ];
 
-    const oppEl = document.getElementById('cu-opponent');
-    const dateEl = document.getElementById('cu-date');
-    const timeEl = document.getElementById('cu-time');
-    const venueEl = document.getElementById('cu-venue');
+  function renderNextMatch(fixtures, prefix, homeGround) {
+    const todayStr = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Los_Angeles' }); // YYYY-MM-DD
+    const next = fixtures.find(f => f.date >= todayStr);
+
+    const oppEl = document.getElementById(prefix + '-opponent');
+    const dateEl = document.getElementById(prefix + '-date');
+    const timeEl = document.getElementById(prefix + '-time');
+    const venueEl = document.getElementById(prefix + '-venue');
 
     if (!next) {
       oppEl.textContent = 'Season complete';
@@ -775,11 +906,22 @@ the packs of yellow-eyed wolves that are also
     const d = new Date(next.date + 'T12:00:00');
     const dateLabel = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
 
+    let venueLabel;
+    if (next.venue === 'H') {
+      venueLabel = homeGround + ' (Home)';
+    } else {
+      const away = grounds[next.opp];
+      venueLabel = away ? away + ' (Away)' : 'Away';
+    }
+
     oppEl.textContent = next.opp;
     dateEl.textContent = dateLabel;
     timeEl.textContent = next.time ? next.time + ' PT' : 'TBC';
-    venueEl.textContent = next.venue === 'H' ? 'Cledara Abbey Stadium (Home)' : 'Away';
-  })();
+    venueEl.textContent = venueLabel;
+  }
+
+  renderNextMatch(cuFixtures, 'cu', 'Cledara Abbey Stadium');
+  renderNextMatch(ptFixtures, 'pt', 'Firhill Stadium');
 
   // ── Search ───────────────────────────────────────────────
   document.getElementById('searchInput').addEventListener('keydown', e => {
