@@ -49,7 +49,7 @@
     }
 
     .center-wrap {
-      max-width: 900px;
+      max-width: 1170px;
       width: 100%;
       margin: 0 auto;
       display: flex;
@@ -92,7 +92,7 @@
 
     .main-row {
       display: grid;
-      grid-template-columns: 190px 1fr 320px;
+      grid-template-columns: 190px 1fr 320px 260px;
       grid-template-rows: auto auto;
       gap: 10px;
       align-items: start;
@@ -143,6 +143,93 @@
       grid-column: 3;
       grid-row: 1 / 3;
       align-self: start;
+    }
+
+    /* ── Standings column ── */
+
+    .standings-col {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      grid-column: 4;
+      grid-row: 1 / 3;
+      align-self: start;
+    }
+
+    .s10 { padding: 10px 12px; }
+
+    .s10-header {
+      font-size: 11px;
+      cursor: pointer;
+      color: var(--e0D);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid var(--e02);
+    }
+
+    .tbl-row {
+      display: flex;
+      align-items: baseline;
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--e06);
+      padding: 0 3px;
+    }
+
+    .tbl-head {
+      color: var(--e03);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-bottom: 1px solid var(--e02);
+      padding-bottom: 3px;
+      margin-bottom: 3px;
+    }
+
+    .tbl-pos    { width: 21px; color: var(--e03); flex: 0 0 auto; }
+    .tbl-club   { flex: 1 1 auto; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+    .tbl-p      { width: 22px; text-align: right; flex: 0 0 auto; color: var(--e04); }
+    .tbl-gd     { width: 32px; text-align: right; flex: 0 0 auto; color: var(--e04); }
+    .tbl-pts    { width: 28px; text-align: right; flex: 0 0 auto; color: var(--e05); }
+
+    .tbl-head .tbl-p,
+    .tbl-head .tbl-gd,
+    .tbl-head .tbl-pts { color: var(--e03); }
+
+    /* Left edge marks the promotion, play-off and relegation zones. */
+    .tbl-row.zone-champ  { box-shadow: inset 2px 0 0 var(--e0A); }
+    .tbl-row.zone-po     { box-shadow: inset 2px 0 0 var(--e0C); }
+    .tbl-row.zone-rel    { box-shadow: inset 2px 0 0 var(--e08); }
+
+    .tbl-row.mine {
+      background: var(--e02);
+      color: var(--e07);
+    }
+    .tbl-row.mine .tbl-pos,
+    .tbl-row.mine .tbl-p,
+    .tbl-row.mine .tbl-gd,
+    .tbl-row.mine .tbl-pts { color: var(--e07); }
+
+    .s10-key {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 10px;
+      margin-top: 8px;
+      padding-top: 6px;
+      border-top: 1px solid var(--e02);
+      font-size: 11px;
+      color: var(--e03);
+    }
+
+    .s10-key span { display: flex; align-items: center; gap: 5px; }
+    .s10-key i { width: 7px; height: 7px; display: inline-block; }
+
+    .s10-stamp {
+      margin-top: 6px;
+      font-size: 11px;
+      color: var(--e03);
+      font-style: italic;
     }
 
     /* ── Wikipedia bar ── */
@@ -300,8 +387,8 @@
 
     .s9 {
       padding: 10px 14px;
-      height: 270px;
-      flex: 0 0 270px;
+      height: auto;
+      flex: 0 0 auto;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
@@ -462,11 +549,10 @@
             <div class="bm-col-header">Football</div>
             <ul>
               <li><a href="https://www.paramountplus.com/shows/english-football-league/">EFL</a></li>
+              <li><a href="https://www.dazn.com/en-US/competition/Competition:b5udgm9vakjqz8dcmy5b2g0xt?tab=home">National League</a></li>
               <li><a href="https://plus.nwslsoccer.com/home?from=%2F&utm_source=nwsl&utm_medium=homepage&utm_campaign=nwslsoccer">NWSL</a></li>
               <li><a href="https://www.paramountplus.com/shows/scottish-professional-football-league/">SPFL</a></li>
-               <li><a href="https://www.youtube.com/@USL/streams">USL</a></li>
-              <li><a href="https://www.youtube.com/playlist?list=PLxXrgDYBukhjV3lzPVqDhmcllCe-5BG2A">WSL 1</a></li>
-              <li><a href="https://www.youtube.com/playlist?list=PLgshjza0I1uOjXDWHfJLMAkEd9eiSclsf">WSL 2</a></li>
+
             </ul>
           </div>
           <div class="bm-col">
@@ -476,7 +562,6 @@
               <li><a href="https://lichess.org/">Chess</a></li>
               <li><a href="http://localhost:8096/web/#/home">Jellyfin</a></li>
               <li><a href="https://rateyourmusic.com/~valuska">RYM</a></li>
-               <li><a href="https://substack.com/inbox">Substack</a></li>
               <li><a href="https://www.youtube.com/">YouTube</a></li>
             </ul>
           </div>
@@ -486,7 +571,6 @@
               <li><a href="https://claude.ai/new">Claude</a></li>
               <li><a href="https://mail.google.com/mail/u/0/#inbox">Gmail</a></li>
               <li><a href="https://drive.google.com/drive/my-drive">Google Drive</a></li>
-              <li><a href="https://outlook.office.com/mail/">Outlook</a></li>
               <li><a href="https://drive.proton.me/u/2/cQ7L3gePuclsfx14t4-B3wboSdUtFATdAifLALnq8ocaTEUniKIzB58TCFTYHrwYQ-X4byyuYoKGUV4TNp0Z1Q==/folder/pW2-QMBHeSN1D2DE4V_I6t-rwIP0wrObHaXDB1VRGKCiHZMV4VGiyzZIDkG9gxpR6aY0pGzZEe96aWJzDKL2vA==">Proton Drive</a></li>
               <li><a href="https://mail.proton.me/u/2/inbox">Proton Mail</a></li>
               
@@ -518,21 +602,28 @@ the packs of yellow-eyed wolves that are also
           <div class="poem-attr">— Mary Oliver, 1983</div>
         </div>
         <div class="box s9">
-          <div class="s9-header">Next Matches</div>
+          <div class="s9-header">Next Match</div>
           <div class="s9-fixture">
-            <div class="s9-club">Cambridge United</div>
-            <div class="s9-opponent" id="cu-opponent">Loading...</div>
-            <div class="s9-row"><span class="s9-label">Date</span><span id="cu-date">—</span></div>
-            <div class="s9-row"><span class="s9-label">Kickoff</span><span id="cu-time">—</span></div>
-            <div class="s9-venue" id="cu-venue">—</div>
+            <div class="s9-club">Yeovil Town</div>
+            <div class="s9-opponent" id="yt-opponent">Loading...</div>
+            <div class="s9-row"><span class="s9-label">Date</span><span id="yt-date">—</span></div>
+            <div class="s9-row"><span class="s9-label">Kickoff</span><span id="yt-time">—</span></div>
+            <div class="s9-venue" id="yt-venue">—</div>
           </div>
-          <div class="s9-fixture">
-            <div class="s9-club">Partick Thistle</div>
-            <div class="s9-opponent" id="pt-opponent">Loading...</div>
-            <div class="s9-row"><span class="s9-label">Date</span><span id="pt-date">—</span></div>
-            <div class="s9-row"><span class="s9-label">Kickoff</span><span id="pt-time">—</span></div>
-            <div class="s9-venue" id="pt-venue">—</div>
+        </div>
+      </div>
+
+      <!-- Far right: National League table -->
+      <div class="standings-col">
+        <div class="box s10">
+          <div class="s10-header" id="nl-refresh" title="Click to refresh now">National League</div>
+          <div id="nl-table"></div>
+          <div class="s10-key">
+            <span><i style="background:var(--e0A)"></i>Promoted</span>
+            <span><i style="background:var(--e0C)"></i>Play-offs</span>
+            <span><i style="background:var(--e08)"></i>Relegated</span>
           </div>
+          <div class="s10-stamp" id="nl-stamp"></div>
         </div>
       </div>
 
@@ -736,51 +827,39 @@ the packs of yellow-eyed wolves that are also
   })();
 
   // ── Grounds ─────────────────────────────────────────────
-  // Home ground for every club either side plays this season, used to
-  // name the venue for away fixtures. Keys must match the "opp" strings
-  // in the fixture arrays exactly. Unknown clubs fall back to "Away".
+  // Home ground for every club Yeovil face this season, used to name
+  // the venue for away fixtures. Keys must match the "opp" strings in
+  // the fixture array exactly. Unknown clubs fall back to "Away".
   // Where a ground has both a traditional and a sponsored name, the
   // traditional one is used, since sponsors change and the old names
   // don't. A few grounds have only ever had sponsor names; those are
   // marked so you know they may go stale.
   const grounds = {
-    // Scottish Championship
-    'Arbroath':             'Gayfield Park',
-    'Ayr United':           'Somerset Park',
-    'Dunfermline Athletic': 'East End Park',
-    'Greenock Morton':      'Cappielow Park',
-    'Hibernian':            'Easter Road',
-    'Inverness CT':         'Caledonian Stadium',
-    'Livingston':           'Almondvale Stadium',
-    'Partick Thistle':      'Firhill Stadium',
-    "Queen's Park":         'Lesser Hampden',
-    'Raith Rovers':         "Stark's Park",
-    'Stenhousemuir':        'Ochilview Park',
-    // EFL League One
-    'AFC Wimbledon':        'Plough Lane',
-    'Barnsley':             'Oakwell',
-    'Blackpool':            'Bloomfield Road',
-    'Bradford City':        'Valley Parade',
-    'Bromley':              'Hayes Lane',
-    'Burton Albion':        'Pirelli Stadium',
-    'Cambridge United':     'Cledara Abbey Stadium',
-    'Doncaster Rovers':     'Eco-Power Stadium',      // sponsor name only
-    'Huddersfield Town':    'Accu Stadium',           // sponsor name only
-    'Leicester City':       'King Power Stadium',     // sponsor name only
-    'Leyton Orient':        'Brisbane Road',
-    'Luton Town':           'Kenilworth Road',
-    'MK Dons':              'Stadium MK',
-    'Mansfield Town':       'Field Mill',
-    'Notts County':         'Meadow Lane',
-    'Oxford United':        'Kassam Stadium',
-    'Peterborough United':  'London Road',
-    'Plymouth Argyle':      'Home Park',
-    'Reading':              'Madejski Stadium',
-    'Sheffield Wednesday':  'Hillsborough',
-    'Stevenage':            'Broadhall Way',
-    'Stockport County':     'Edgeley Park',
-    'Wigan Athletic':       'Brick Community Stadium', // sponsor name only
-    'Wycombe Wanderers':    'Adams Park',
+    // Enterprise National League 2026/27
+    'AFC Fylde':              'Mill Farm',
+    'Aldershot Town':         'Recreation Ground',
+    'Altrincham':             'Moss Lane',
+    'Barrow':                 'Holker Street',
+    'Boreham Wood':           'Meadow Park',
+    'Boston United':          'Jakemans Community Stadium', // sponsor name only
+    'Carlisle United':        'Brunton Park',
+    'Eastleigh':              'Silverlake Stadium',         // sponsor name only
+    'FC Halifax Town':        'The Shay',
+    'Forest Green Rovers':    'The New Lawn',
+    'Gateshead':              'Gateshead International Stadium',
+    'Harrogate Town':         'Wetherby Road',
+    'Hartlepool United':      'Victoria Park',
+    'Hornchurch':             'Hornchurch Stadium',
+    'Kidderminster Harriers': 'Aggborough',
+    'Scunthorpe United':      'Glanford Park',
+    'Solihull Moors':         'Damson Park',
+    'Southend United':        'Roots Hall',
+    'Sutton United':          'Gander Green Lane',
+    'Tamworth':               'The Lamb Ground',
+    'Wealdstone':             'Grosvenor Vale',
+    'Woking':                 'Kingfield Stadium',
+    'Worthing':               'Woodside Road',
+    'Yeovil Town':            'Huish Park',
   };
 
   // ── Fixtures ────────────────────────────────────────────
@@ -793,97 +872,56 @@ the packs of yellow-eyed wolves that are also
   //   14 Mar 2027 – 28 Mar 2027  (US on PDT, UK still on GMT)
   // Fixtures inside those windows are marked "DST gap" below.
   //
-  // Cambridge United — EFL League One 2026/27 (dates + home/away).
-  // The EFL only confirms kickoff times a few weeks out, except the
-  // season opener; unconfirmed ones are null and render as "TBC".
-  const cuFixtures = [
-    { date: '2026-08-15', opp: 'Wigan Athletic',      venue: 'H', time: '7:00 AM' },
-    { date: '2026-08-22', opp: 'Bromley',              venue: 'A', time: null },
-    { date: '2026-08-29', opp: 'Huddersfield Town',    venue: 'H', time: null },
-    { date: '2026-09-01', opp: 'Bradford City',        venue: 'A', time: null },
-    { date: '2026-09-05', opp: 'Burton Albion',        venue: 'A', time: null },
-    { date: '2026-09-12', opp: 'Reading',               venue: 'H', time: null },
-    { date: '2026-09-19', opp: 'Oxford United',        venue: 'A', time: null },
-    { date: '2026-09-26', opp: 'AFC Wimbledon',        venue: 'H', time: null },
-    { date: '2026-10-03', opp: 'Sheffield Wednesday',  venue: 'A', time: null },
-    { date: '2026-10-10', opp: 'Blackpool',             venue: 'H', time: null },
-    { date: '2026-10-17', opp: 'Barnsley',              venue: 'A', time: null },
-    { date: '2026-10-20', opp: 'Wycombe Wanderers',    venue: 'H', time: null },
-    { date: '2026-10-24', opp: 'Plymouth Argyle',      venue: 'H', time: null },
-    { date: '2026-10-31', opp: 'Leyton Orient',        venue: 'A', time: null },
-    { date: '2026-11-14', opp: 'Luton Town',            venue: 'A', time: null },
-    { date: '2026-11-21', opp: 'Stockport County',     venue: 'H', time: null },
-    { date: '2026-11-28', opp: 'Peterborough United',  venue: 'A', time: null },
-    { date: '2026-12-01', opp: 'Leicester City',       venue: 'H', time: null },
-    { date: '2026-12-12', opp: 'MK Dons',               venue: 'A', time: null },
-    { date: '2026-12-19', opp: 'Stevenage',             venue: 'H', time: null },
-    { date: '2026-12-26', opp: 'Notts County',          venue: 'A', time: null },
-    { date: '2026-12-29', opp: 'Doncaster Rovers',      venue: 'H', time: null },
-    { date: '2027-01-01', opp: 'Mansfield Town',        venue: 'H', time: null },
-    { date: '2027-01-09', opp: 'Stevenage',             venue: 'A', time: null },
-    { date: '2027-01-16', opp: 'Barnsley',              venue: 'H', time: null },
-    { date: '2027-01-19', opp: 'Wycombe Wanderers',    venue: 'A', time: null },
-    { date: '2027-01-23', opp: 'Plymouth Argyle',      venue: 'A', time: null },
-    { date: '2027-01-30', opp: 'Leyton Orient',        venue: 'H', time: null },
-    { date: '2027-02-06', opp: 'Huddersfield Town',    venue: 'A', time: null },
-    { date: '2027-02-09', opp: 'Bradford City',        venue: 'H', time: null },
-    { date: '2027-02-13', opp: 'Burton Albion',        venue: 'H', time: null },
-    { date: '2027-02-20', opp: 'Reading',               venue: 'A', time: null },
-    { date: '2027-02-27', opp: 'Peterborough United',  venue: 'H', time: null },
-    { date: '2027-03-06', opp: 'Wigan Athletic',       venue: 'A', time: null },
-    { date: '2027-03-13', opp: 'Bromley',               venue: 'H', time: null },
-    { date: '2027-03-20', opp: 'Stockport County',     venue: 'A', time: null },
-    { date: '2027-03-26', opp: 'Mansfield Town',        venue: 'A', time: null },
-    { date: '2027-03-29', opp: 'MK Dons',                venue: 'H', time: null },
-    { date: '2027-04-03', opp: 'Doncaster Rovers',      venue: 'A', time: null },
-    { date: '2027-04-10', opp: 'Notts County',          venue: 'H', time: null },
-    { date: '2027-04-13', opp: 'AFC Wimbledon',        venue: 'A', time: null },
-    { date: '2027-04-17', opp: 'Oxford United',        venue: 'H', time: null },
-    { date: '2027-04-24', opp: 'Blackpool',              venue: 'A', time: null },
-    { date: '2027-04-27', opp: 'Sheffield Wednesday',  venue: 'H', time: null },
-    { date: '2027-05-01', opp: 'Luton Town',             venue: 'H', time: null },
-    { date: '2027-05-08', opp: 'Leicester City',        venue: 'A', time: null },
-  ];
-
-  // Partick Thistle — William Hill Championship 2026/27, plus any
-  // confirmed cup ties (marked with "comp"). Championship kickoffs are
-  // confirmed at the time of publication, so all times are filled in.
-  const ptFixtures = [
-    { date: '2026-08-16', opp: 'Hibernian',              venue: 'A', time: '6:00 AM',  comp: 'Premier Sports Cup' },
-    { date: '2026-08-21', opp: 'Inverness CT',           venue: 'A', time: '11:30 AM' },
-    { date: '2026-08-29', opp: "Queen's Park",           venue: 'H', time: '7:00 AM' },
-    { date: '2026-09-05', opp: 'Ayr United',             venue: 'H', time: '7:00 AM' },
-    { date: '2026-09-12', opp: 'Stenhousemuir',          venue: 'A', time: '7:00 AM' },
-    { date: '2026-09-19', opp: 'Raith Rovers',           venue: 'H', time: '7:00 AM' },
-    { date: '2026-09-25', opp: 'Dunfermline Athletic',   venue: 'A', time: '11:45 AM' },
-    { date: '2026-10-03', opp: 'Arbroath',               venue: 'H', time: '7:00 AM' },
-    { date: '2026-10-10', opp: 'Livingston',             venue: 'A', time: '7:00 AM' },
-    { date: '2026-10-17', opp: 'Ayr United',             venue: 'A', time: '7:00 AM' },
-    { date: '2026-10-24', opp: 'Stenhousemuir',          venue: 'H', time: '7:00 AM' },
-    { date: '2026-10-31', opp: 'Greenock Morton',        venue: 'H', time: '8:00 AM' }, // DST gap
-    { date: '2026-11-07', opp: "Queen's Park",           venue: 'A', time: '7:00 AM' },
-    { date: '2026-11-14', opp: 'Inverness CT',           venue: 'H', time: '7:00 AM' },
-    { date: '2026-11-21', opp: 'Raith Rovers',           venue: 'A', time: '7:00 AM' },
-    { date: '2026-12-05', opp: 'Dunfermline Athletic',   venue: 'H', time: '7:00 AM' },
-    { date: '2026-12-12', opp: 'Arbroath',               venue: 'A', time: '7:00 AM' },
-    { date: '2026-12-19', opp: 'Ayr United',             venue: 'H', time: '7:00 AM' },
-    { date: '2026-12-26', opp: "Queen's Park",           venue: 'H', time: '7:00 AM' },
-    { date: '2027-01-02', opp: 'Stenhousemuir',          venue: 'A', time: '7:00 AM' },
-    { date: '2027-01-09', opp: 'Livingston',             venue: 'H', time: '7:00 AM' },
-    { date: '2027-01-23', opp: 'Greenock Morton',        venue: 'A', time: '7:00 AM' },
-    { date: '2027-01-30', opp: 'Inverness CT',           venue: 'A', time: '7:00 AM' },
-    { date: '2027-02-13', opp: 'Raith Rovers',           venue: 'H', time: '7:00 AM' },
-    { date: '2027-02-20', opp: 'Dunfermline Athletic',   venue: 'A', time: '7:00 AM' },
-    { date: '2027-02-27', opp: 'Arbroath',               venue: 'H', time: '7:00 AM' },
-    { date: '2027-03-06', opp: 'Ayr United',             venue: 'A', time: '7:00 AM' },
-    { date: '2027-03-13', opp: "Queen's Park",           venue: 'A', time: '7:00 AM' },
-    { date: '2027-03-20', opp: 'Stenhousemuir',          venue: 'H', time: '8:00 AM' }, // DST gap
-    { date: '2027-03-27', opp: 'Raith Rovers',           venue: 'A', time: '8:00 AM' }, // DST gap
-    { date: '2027-04-03', opp: 'Inverness CT',           venue: 'H', time: '7:00 AM' },
-    { date: '2027-04-10', opp: 'Greenock Morton',        venue: 'H', time: '7:00 AM' },
-    { date: '2027-04-17', opp: 'Livingston',             venue: 'A', time: '7:00 AM' },
-    { date: '2027-04-24', opp: 'Dunfermline Athletic',   venue: 'H', time: '7:00 AM' },
-    { date: '2027-04-30', opp: 'Arbroath',               venue: 'A', time: '11:45 AM' },
+  // Yeovil Town — Enterprise National League 2026/27. Every league
+  // kickoff is published up front in this division, so no entry is
+  // null; anything that later moves for TV needs editing by hand.
+  const ytFixtures = [
+    { date: '2026-08-08', opp: 'Scunthorpe United',       venue: 'A', time: '7:00 AM' },
+    { date: '2026-08-15', opp: 'Carlisle United',         venue: 'H', time: '7:00 AM' },
+    { date: '2026-08-22', opp: 'Gateshead',               venue: 'H', time: '4:30 AM' },
+    { date: '2026-08-28', opp: 'Barrow',                  venue: 'A', time: '11:45 AM' },
+    { date: '2026-08-31', opp: 'Tamworth',                venue: 'H', time: '7:00 AM' },
+    { date: '2026-09-05', opp: 'Southend United',         venue: 'A', time: '4:30 AM' },
+    { date: '2026-09-12', opp: 'AFC Fylde',               venue: 'H', time: '7:00 AM' },
+    { date: '2026-09-15', opp: 'Aldershot Town',          venue: 'A', time: '11:45 AM' },
+    { date: '2026-09-18', opp: 'Solihull Moors',          venue: 'H', time: '11:45 AM' },
+    { date: '2026-09-26', opp: 'Kidderminster Harriers',  venue: 'A', time: '7:00 AM' },
+    { date: '2026-09-29', opp: 'Worthing',                venue: 'H', time: '11:45 AM' },
+    { date: '2026-10-03', opp: 'Boston United',           venue: 'H', time: '7:00 AM' },
+    { date: '2026-10-10', opp: 'Wealdstone',              venue: 'A', time: '7:00 AM' },
+    { date: '2026-10-24', opp: 'Altrincham',              venue: 'H', time: '7:00 AM' },
+    { date: '2026-10-27', opp: 'Hornchurch',              venue: 'A', time: '12:45 PM' }, // DST gap
+    { date: '2026-10-31', opp: 'FC Halifax Town',         venue: 'A', time: '5:30 AM' }, // DST gap
+    { date: '2026-11-14', opp: 'Boreham Wood',            venue: 'H', time: '7:00 AM' },
+    { date: '2026-11-21', opp: 'Forest Green Rovers',     venue: 'H', time: '9:30 AM' },
+    { date: '2026-11-24', opp: 'Eastleigh',               venue: 'A', time: '11:45 AM' },
+    { date: '2026-11-28', opp: 'Harrogate Town',          venue: 'A', time: '7:00 AM' },
+    { date: '2026-12-05', opp: 'Hartlepool United',       venue: 'H', time: '7:00 AM' },
+    { date: '2026-12-09', opp: 'Wealdstone',              venue: 'H', time: '11:45 AM' },
+    { date: '2026-12-19', opp: 'Boston United',           venue: 'A', time: '4:30 AM' },
+    { date: '2026-12-26', opp: 'Sutton United',           venue: 'H', time: '7:00 AM' },
+    { date: '2026-12-28', opp: 'Woking',                  venue: 'A', time: '7:00 AM' },
+    { date: '2027-01-02', opp: 'Altrincham',              venue: 'A', time: '7:00 AM' },
+    { date: '2027-01-09', opp: 'Hornchurch',              venue: 'H', time: '7:00 AM' },
+    { date: '2027-01-23', opp: 'Carlisle United',         venue: 'A', time: '7:00 AM' },
+    { date: '2027-01-26', opp: 'Eastleigh',               venue: 'H', time: '11:45 AM' },
+    { date: '2027-01-30', opp: 'Scunthorpe United',       venue: 'H', time: '4:30 AM' },
+    { date: '2027-02-06', opp: 'Forest Green Rovers',     venue: 'A', time: '7:00 AM' },
+    { date: '2027-02-13', opp: 'Kidderminster Harriers',  venue: 'H', time: '7:00 AM' },
+    { date: '2027-02-17', opp: 'Worthing',                venue: 'A', time: '11:45 AM' },
+    { date: '2027-02-20', opp: 'Solihull Moors',          venue: 'A', time: '7:00 AM' },
+    { date: '2027-02-23', opp: 'Aldershot Town',          venue: 'H', time: '11:45 AM' },
+    { date: '2027-02-27', opp: 'Gateshead',               venue: 'A', time: '7:00 AM' },
+    { date: '2027-03-06', opp: 'Barrow',                  venue: 'H', time: '7:00 AM' },
+    { date: '2027-03-09', opp: 'Tamworth',                venue: 'A', time: '11:45 AM' },
+    { date: '2027-03-13', opp: 'Southend United',         venue: 'H', time: '7:00 AM' },
+    { date: '2027-03-20', opp: 'AFC Fylde',               venue: 'A', time: '5:30 AM' }, // DST gap
+    { date: '2027-03-26', opp: 'Woking',                  venue: 'H', time: '8:00 AM' }, // DST gap
+    { date: '2027-03-29', opp: 'Sutton United',           venue: 'A', time: '7:00 AM' },
+    { date: '2027-04-03', opp: 'FC Halifax Town',         venue: 'H', time: '7:00 AM' },
+    { date: '2027-04-10', opp: 'Boreham Wood',            venue: 'A', time: '7:00 AM' },
+    { date: '2027-04-17', opp: 'Hartlepool United',       venue: 'A', time: '7:00 AM' },
+    { date: '2027-04-24', opp: 'Harrogate Town',          venue: 'H', time: '4:30 AM' },
   ];
 
   function renderNextMatch(fixtures, prefix, homeGround) {
@@ -920,8 +958,247 @@ the packs of yellow-eyed wolves that are also
     venueEl.textContent = venueLabel;
   }
 
-  renderNextMatch(cuFixtures, 'cu', 'Cledara Abbey Stadium');
-  renderNextMatch(ptFixtures, 'pt', 'Firhill Stadium');
+  renderNextMatch(ytFixtures, 'yt', 'Huish Park');
+
+  // ── National League table ───────────────────────────────
+  // The fifth tier has no free, CORS-open standings feed, so the table
+  // is scraped from the public Football Web Pages page once a day and
+  // cached in localStorage. Three layers, in order of preference:
+  //
+  //   1. a fresh scrape, if today's has not run yet
+  //   2. the last good scrape, from localStorage
+  //   3. the hardcoded snapshot below
+  //
+  // Nothing here can leave the widget blank: a failed or nonsense
+  // response is discarded and the previous layer is used instead.
+
+  const NL_SOURCE = 'https://www.footballwebpages.co.uk/national-league/league-table';
+
+  // Public CORS proxy. A local file has origin "null", so the page
+  // cannot read footballwebpages.co.uk directly. Swap this if the
+  // service goes away; anything that returns the raw body and sends
+  // Access-Control-Allow-Origin will do.
+  const NL_PROXY = url => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(url);
+
+  const NL_CACHE_KEY = 'nl-table-cache';
+
+  // Fallback snapshot, used on a cold start with no network.
+  // Fields: [club, played, won, drawn, lost, for, against, points]
+  const nlFallback = {
+    updated: '27 Aug 2026',
+    rows: [
+      ['Boreham Wood',           4, 3, 1, 0, 11,  5, 10],
+      ['Southend United',        3, 3, 0, 0,  7,  2,  9],
+      ['Sutton United',          3, 3, 0, 0,  6,  1,  9],
+      ['Harrogate Town',         3, 2, 1, 0, 10,  5,  7],
+      ['Hartlepool United',      3, 2, 0, 1,  4,  2,  6],
+      ['Hornchurch',             3, 2, 0, 1,  6,  5,  6],
+      ['Eastleigh',              3, 2, 0, 1,  5,  4,  6],
+      ['Worthing',               3, 2, 0, 1,  5,  4,  6],
+      ['Boston United',          4, 2, 0, 2,  4,  3,  6],
+      ['Forest Green Rovers',    3, 2, 0, 1,  5,  6,  6],
+      ['Yeovil Town',            3, 1, 2, 0,  5,  2,  5],
+      ['Carlisle United',        3, 1, 1, 1,  7,  5,  4],
+      ['AFC Fylde',              3, 1, 1, 1,  6,  6,  4],
+      ['Aldershot Town',         3, 1, 1, 1,  2,  2,  4],
+      ['Kidderminster Harriers', 3, 1, 1, 1,  2,  4,  4],
+      ['FC Halifax Town',        3, 1, 0, 2,  7,  7,  3],
+      ['Gateshead',              3, 1, 0, 2,  3,  5,  3],
+      ['Woking',                 3, 1, 0, 2,  3,  7,  3],
+      ['Scunthorpe United',      3, 0, 1, 2,  3,  5,  1],
+      ['Barrow',                 3, 0, 1, 2,  3,  6,  1],
+      ['Wealdstone',             3, 0, 1, 2,  3,  6,  1],
+      ['Tamworth',               3, 0, 1, 2,  5,  9,  1],
+      ['Altrincham',             3, 0, 0, 3,  1,  5,  0],
+      ['Solihull Moors',         3, 0, 0, 3,  3, 10,  0],
+    ],
+  };
+
+  // Display names, trimmed to fit the column. Anything not listed here
+  // is printed in full. Keys must match the source's club names.
+  const nlShortNames = {
+    'Boreham Wood':           'Boreham Wd',
+    'Southend United':        'Southend',
+    'Sutton United':          'Sutton',
+    'Harrogate Town':         'Harrogate',
+    'Hartlepool United':      'Hartlepool',
+    'Boston United':          'Boston Utd',
+    'Forest Green Rovers':    'Forest Green',
+    'Yeovil Town':            'Yeovil',
+    'Carlisle United':        'Carlisle',
+    'Aldershot Town':         'Aldershot',
+    'Kidderminster Harriers': 'Kidderminster',
+    'FC Halifax Town':        'Halifax',
+    'Scunthorpe United':      'Scunthorpe',
+    'Solihull Moors':         'Solihull',
+  };
+
+  // Clubs whose rows get highlighted. Add a second entry when another
+  // side goes in under Yeovil.
+  const nlHighlight = ['Yeovil Town'];
+
+  // Zone sizes. Change these if the league alters the format.
+  const NL_PROMOTED = 1;
+  const NL_PLAYOFF_TO = 7;
+  const NL_RELEGATED = 4;
+
+  function nlToday() {
+    return new Date().toLocaleDateString('en-CA', { timeZone: 'America/Los_Angeles' });
+  }
+
+  // Pull the standings out of the fetched page.
+  //
+  // Deliberately loose about layout: it finds every table row that
+  // contains a club link and reads the LAST eight numeric cells, which
+  // are the season totals (P W D L F A GD Pts). The badge, position,
+  // latest-score, home-split and away-split columns in front of those
+  // are ignored, so the parse survives most cosmetic changes to the
+  // page. Position comes from row order, not from the position column,
+  // which keeps the league's own tiebreakers intact.
+  function nlParse(html) {
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    const rows = [];
+
+    doc.querySelectorAll('tr').forEach(tr => {
+      const link = tr.querySelector('a[href]');
+      if (!link) return;
+      const club = link.textContent.trim();
+      if (!club) return;
+
+      const nums = [];
+      tr.querySelectorAll('td').forEach(td => {
+        const t = td.textContent.trim().replace(/^\+/, '');
+        if (/^-?\d+$/.test(t)) nums.push(parseInt(t, 10));
+      });
+      if (nums.length < 8) return;
+
+      const [played, won, drawn, lost, scored, conceded, , points] = nums.slice(-8);
+      rows.push([club, played, won, drawn, lost, scored, conceded, points]);
+    });
+
+    return rows;
+  }
+
+  // Refuse anything that does not look like a real league table, so a
+  // redesigned page or a proxy error page cannot wipe the widget.
+  function nlValid(rows) {
+    if (!Array.isArray(rows) || rows.length !== 24) return false;
+    let gdSum = 0, scored = 0, conceded = 0;
+
+    for (const r of rows) {
+      if (!Array.isArray(r) || r.length !== 8) return false;
+      const [club, p, w, d, l, f, a, pts] = r;
+      if (typeof club !== 'string' || !club) return false;
+      if ([p, w, d, l, f, a, pts].some(n => !Number.isInteger(n) || n < 0)) return false;
+      if (p !== w + d + l) return false;
+      if (pts > w * 3 + d) return false;     // below is fine: clubs do get points deducted
+      gdSum += f - a;
+      scored += f;
+      conceded += a;
+    }
+
+    // Every goal scored is a goal conceded by somebody else.
+    return gdSum === 0 && scored === conceded;
+  }
+
+  function nlReadCache() {
+    try {
+      const raw = localStorage.getItem(NL_CACHE_KEY);
+      if (!raw) return null;
+      const c = JSON.parse(raw);
+      return nlValid(c.rows) ? c : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async function nlFetch() {
+    const resp = await fetch(NL_PROXY(NL_SOURCE), { cache: 'no-store' });
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const rows = nlParse(await resp.text());
+    if (!nlValid(rows)) throw new Error('table did not parse cleanly');
+    return rows;
+  }
+
+  function renderStandings(data, note) {
+    const host = document.getElementById('nl-table');
+    if (!host) return;
+    const rows = data.rows;
+    const total = rows.length;
+
+    let html = '<div class="tbl-row tbl-head">' +
+      '<span class="tbl-pos"></span>' +
+      '<span class="tbl-club">Club</span>' +
+      '<span class="tbl-p">P</span>' +
+      '<span class="tbl-gd">GD</span>' +
+      '<span class="tbl-pts">Pts</span>' +
+      '</div>';
+
+    rows.forEach((row, i) => {
+      const [club, played, , , , scored, conceded, points] = row;
+      const pos = i + 1;
+      const gd = scored - conceded;
+      const gdLabel = gd > 0 ? '+' + gd : String(gd);
+      const name = nlShortNames[club] || club;
+
+      let zone = '';
+      if (pos <= NL_PROMOTED) zone = ' zone-champ';
+      else if (pos <= NL_PLAYOFF_TO) zone = ' zone-po';
+      else if (pos > total - NL_RELEGATED) zone = ' zone-rel';
+
+      const mine = nlHighlight.includes(club) ? ' mine' : '';
+
+      html += `<div class="tbl-row${zone}${mine}" title="${club}">` +
+        `<span class="tbl-pos">${pos}</span>` +
+        `<span class="tbl-club">${name}</span>` +
+        `<span class="tbl-p">${played}</span>` +
+        `<span class="tbl-gd">${gdLabel}</span>` +
+        `<span class="tbl-pts">${points}</span>` +
+        `</div>`;
+    });
+
+    host.innerHTML = html;
+    document.getElementById('nl-stamp').textContent = note;
+  }
+
+  async function initStandings() {
+    const today = nlToday();
+    const cached = nlReadCache();
+
+    // Draw something immediately so the column is never empty while the
+    // network call is in flight.
+    if (cached) {
+      renderStandings(cached, 'Updated ' + cached.updated);
+      if (cached.day === today) return;   // already refreshed today
+    } else {
+      renderStandings(nlFallback, 'Updated ' + nlFallback.updated);
+    }
+
+    try {
+      const rows = await nlFetch();
+      const stamped = new Date().toLocaleDateString('en-US', {
+        timeZone: 'America/Los_Angeles',
+        day: 'numeric', month: 'short', year: 'numeric',
+      });
+      const fresh = { day: today, updated: stamped, rows: rows };
+      localStorage.setItem(NL_CACHE_KEY, JSON.stringify(fresh));
+      renderStandings(fresh, 'Updated ' + fresh.updated);
+    } catch (e) {
+      // Leave whatever is already on screen and say so quietly.
+      const base = cached || nlFallback;
+      renderStandings(base, 'Updated ' + base.updated + ' (refresh failed)');
+    }
+  }
+
+  initStandings();
+
+  // Refetch on demand, for when a result lands after the daily refresh
+  // has already run.
+  document.getElementById('nl-refresh').addEventListener('click', () => {
+    document.getElementById('nl-stamp').textContent = 'Refreshing...';
+    localStorage.removeItem(NL_CACHE_KEY);
+    initStandings();
+  });
 
   // ── Search ───────────────────────────────────────────────
   document.getElementById('searchInput').addEventListener('keydown', e => {
