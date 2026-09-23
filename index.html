@@ -420,6 +420,41 @@
 
     .s9-venue { font-size: 11px; color: var(--e03); margin-top: 6px; font-style: italic; }
 
+    /* ── Section 11: countdown ── */
+
+    .s11 {
+      padding: 10px 14px;
+      flex: 0 0 auto;
+    }
+
+    .s11-header {
+      font-size: 11px;
+      color: var(--e0D);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 10px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid var(--e02);
+    }
+
+    .s11-days {
+      font-size: 30px;
+      line-height: 1;
+      color: #7D8C68;
+    }
+
+    .s11-unit {
+      font-size: 11px;
+      color: var(--e04);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-left: 6px;
+    }
+
+    .s11-event { font-size: 13px; color: var(--e06); margin-top: 8px; }
+
+    .s11-date { font-size: 11px; color: var(--e03); margin-top: 4px; font-style: italic; }
+
     /* ── On this day ── */
 
     .s8 { padding: 10px 14px; }
@@ -627,12 +662,20 @@ the packs of yellow-eyed wolves that are also
             <div class="s9-venue" id="su-venue">—</div>
           </div>
           <div class="s9-fixture">
-            <div class="s9-club">Yeovil Town FC</div>
+            <div class="s9-club">Yeovil Town</div>
             <div class="s9-opponent" id="yt-opponent">Loading...</div>
             <div class="s9-row"><span class="s9-label">Date</span><span id="yt-date">—</span></div>
             <div class="s9-row"><span class="s9-label">Kickoff</span><span id="yt-time">—</span></div>
             <div class="s9-venue" id="yt-venue">—</div>
           </div>
+        </div>
+        <div class="box s11">
+          <div class="s11-header">Countdown</div>
+          <div>
+            <span class="s11-days" id="cd-days">—</span><span class="s11-unit" id="cd-unit">days</span>
+          </div>
+          <div class="s11-event" id="cd-event">—</div>
+          <div class="s11-date" id="cd-date">—</div>
         </div>
       </div>
 
@@ -1197,6 +1240,41 @@ the packs of yellow-eyed wolves that are also
   renderNextMatch(srFixtures, 'sr', 'Lumen Field', srGrounds);
   renderNextMatch(ssFixtures, 'ss', 'Lumen Field', ssGrounds);
   renderNextMatch(suFixtures, 'su', 'Stadium of Light', suGrounds);
+
+  // ── Countdown ────────────────────────────────────────────
+  // EDIT THESE TWO LINES ONLY. Date is YYYY-MM-DD.
+  const countdownDate  = '2026-10-14';
+  const countdownEvent = 'Move to Moses Lake';
+
+  (function renderCountdown() {
+    // Both dates are treated as plain calendar days in UTC so that
+    // daylight saving changes never shift the count. "Today" is
+    // whatever day it is in Pacific time, matching the rest of the page.
+    const todayStr = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Los_Angeles' });
+    const dayMs = 86400000;
+    const days = Math.round((Date.parse(countdownDate + 'T00:00:00Z') - Date.parse(todayStr + 'T00:00:00Z')) / dayMs);
+
+    const daysEl  = document.getElementById('cd-days');
+    const unitEl  = document.getElementById('cd-unit');
+    const eventEl = document.getElementById('cd-event');
+    const dateEl  = document.getElementById('cd-date');
+
+    if (days > 0) {
+      daysEl.textContent = days;
+      unitEl.textContent = days === 1 ? 'day' : 'days';
+    } else if (days === 0) {
+      daysEl.textContent = 'Today';
+      unitEl.textContent = '';
+    } else {
+      daysEl.textContent = Math.abs(days);
+      unitEl.textContent = Math.abs(days) === 1 ? 'day ago' : 'days ago';
+    }
+
+    eventEl.textContent = countdownEvent;
+    dateEl.textContent = new Date(countdownDate + 'T12:00:00').toLocaleDateString('en-US', {
+      weekday: 'short', month: 'short', day: 'numeric', year: 'numeric'
+    });
+  })();
 
   // ── Search ───────────────────────────────────────────────
   document.getElementById('searchInput').addEventListener('keydown', e => {
