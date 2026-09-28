@@ -626,14 +626,12 @@ the packs of yellow-eyed wolves that are also
         <div class="box s10">
           <div class="s10-header">Standings</div>
           <ul class="s10-links">
-            <li><a href="https://www.fotmob.com/leagues/47/table/premier-league">Premier League</a></li>
             <li><a href="https://www.fotmob.com/leagues/48/table/championship">EFL Championship</a></li>
             <li><a href="https://www.fotmob.com/leagues/108/table/league-one">EFL League One</a></li>
             <li><a href="https://www.fotmob.com/leagues/109/table/league-two">EFL League Two</a></li>
-            <li><a href="https://www.fotmob.com/leagues/117/overview/national-league">National League</a></li>
             <li><a href="https://www.fotmob.com/leagues/130/table/mls">MLS</a></li>
             <li><a href="https://www.fotmob.com/leagues/9134/table/nwsl">NWSL</a></li>
-            
+            <li><a href="https://www.fotmob.com/leagues/47/table/premier-league">Premier League</a></li>
           </ul>
         </div>
       </div>
@@ -929,6 +927,15 @@ the packs of yellow-eyed wolves that are also
   // Yeovil Town — Enterprise National League 2026/27. Every league
   // kickoff is published up front in this division, so no entry is
   // null; anything that later moves for TV needs editing by hand.
+  //
+  // Cup placeholders (comp set, opp/venue/time TBC) mark the rounds
+  // Yeovil enter, using the FA's 2026/27 round dates:
+  //   FA Cup 4th Qualifying Round: Sat 17 Oct 2026 (draw after 3QR)
+  //   FA Trophy 3rd Round:         Sat 12 Dec 2026
+  // Fill in opponent, venue ('H'/'A') and kickoff once drawn. A 3pm UK
+  // kickoff would be 7:00 AM PT on both dates. If they win the FA Cup
+  // tie, add the 1st Round (Sat 7 Nov 2026); if they win the Trophy tie,
+  // the 4th Round is Sat 16 Jan 2027. If they go out, delete later rounds.
   const ytFixtures = [
     { date: '2026-08-08', opp: 'Scunthorpe United',       venue: 'A', time: '7:00 AM' },
     { date: '2026-08-15', opp: 'Carlisle United',         venue: 'H', time: '7:00 AM' },
@@ -943,6 +950,7 @@ the packs of yellow-eyed wolves that are also
     { date: '2026-09-29', opp: 'Worthing',                venue: 'H', time: '11:45 AM' },
     { date: '2026-10-03', opp: 'Boston United',           venue: 'H', time: '7:00 AM' },
     { date: '2026-10-10', opp: 'Wealdstone',              venue: 'A', time: '7:00 AM' },
+    { date: '2026-10-17', opp: 'Opponent TBC',            venue: null, time: null, comp: 'FA Cup' },
     { date: '2026-10-24', opp: 'Altrincham',              venue: 'H', time: '7:00 AM' },
     { date: '2026-10-27', opp: 'Hornchurch',              venue: 'A', time: '12:45 PM' }, // DST gap
     { date: '2026-10-31', opp: 'FC Halifax Town',         venue: 'A', time: '5:30 AM' }, // DST gap
@@ -952,6 +960,7 @@ the packs of yellow-eyed wolves that are also
     { date: '2026-11-28', opp: 'Harrogate Town',          venue: 'A', time: '7:00 AM' },
     { date: '2026-12-05', opp: 'Hartlepool United',       venue: 'H', time: '7:00 AM' },
     { date: '2026-12-09', opp: 'Wealdstone',              venue: 'H', time: '11:45 AM' },
+    { date: '2026-12-12', opp: 'Opponent TBC',            venue: null, time: null, comp: 'FA Trophy' },
     { date: '2026-12-19', opp: 'Boston United',           venue: 'A', time: '4:30 AM' },
     { date: '2026-12-26', opp: 'Sutton United',           venue: 'H', time: '7:00 AM' },
     { date: '2026-12-28', opp: 'Woking',                  venue: 'A', time: '7:00 AM' },
@@ -1118,9 +1127,13 @@ the packs of yellow-eyed wolves that are also
   // Oct 25 and Oct 31 fall in the autumn DST gap. Fixtures from
   // November onward still carry release-day times and WILL move as
   // TV picks are announced, so edit them by hand as batches come out.
-  // Sunderland are also in the Europa League this season; those
-  // matches are not in this league-only list, but their Thursday
-  // slots are what push nearby league games to Sundays.
+  // Europa League league-phase matches (comp: 'UEL') are merged in
+  // by date. Dates from UEFA.com, kickoffs from the club's schedule
+  // announcement (Northern Echo, 29 Aug 2026), checked 28 Sep 2026.
+  // UEL kickoffs are 5:45pm or 8pm UK. The Oct 15 and Oct 22 games are
+  // before the autumn DST gap; Nov 5 onward is GMT to PST. If Sunderland
+  // finish 9th-24th there is a two-legged play-off in February; 1st-8th
+  // go straight to the Round of 16. Add those by hand once drawn.
   // Ground names follow the Yeovil convention: traditional name where
   // one exists, sponsor-only names marked.
   const suGrounds = {
@@ -1144,6 +1157,11 @@ the packs of yellow-eyed wolves that are also
     'Nottingham Forest':      'City Ground',
     'Tottenham Hotspur':      'Tottenham Hotspur Stadium',
     'Sunderland':             'Stadium of Light',
+    // Europa League away grounds
+    'Torreense':              'Estádio Municipal de Leiria',   // UEL venue; not their usual ground
+    'Lech Poznań':            'Stadion Miejski',               // sponsor name Enea Stadion
+    'AC Milan':               'San Siro',
+    'Anderlecht':             'Constant Vanden Stock Stadium', // sponsor name Lotto Park
   };
 
   const suFixtures = [
@@ -1151,16 +1169,22 @@ the packs of yellow-eyed wolves that are also
     { date: '2026-08-29', opp: 'Fulham',                 venue: 'H', time: '7:00 AM' },
     { date: '2026-09-05', opp: 'Brentford',              venue: 'A', time: '7:00 AM' },
     { date: '2026-09-12', opp: 'Arsenal',                venue: 'H', time: '7:00 AM' },
+    { date: '2026-09-16', opp: 'AZ Alkmaar',             venue: 'H', time: '12:00 PM', comp: 'UEL' },
     { date: '2026-09-20', opp: 'Manchester City',        venue: 'A', time: '6:00 AM' },  // moved for TV
     { date: '2026-10-10', opp: 'Brighton & Hove Albion', venue: 'H', time: '7:00 AM' },
+    { date: '2026-10-15', opp: 'Torreense',              venue: 'A', time: '9:45 AM',  comp: 'UEL' },
     { date: '2026-10-18', opp: 'AFC Bournemouth',        venue: 'A', time: '6:00 AM' },  // moved (Europa League)
+    { date: '2026-10-22', opp: 'Lech Poznań',            venue: 'A', time: '9:45 AM',  comp: 'UEL' },
     { date: '2026-10-25', opp: 'Leeds United',           venue: 'H', time: '9:30 AM' },  // moved for TV; DST gap
     { date: '2026-10-31', opp: 'Coventry City',          venue: 'A', time: '8:00 AM' },  // DST gap
+    { date: '2026-11-05', opp: 'Dinamo Zagreb',          venue: 'H', time: '12:00 PM', comp: 'UEL' },
     { date: '2026-11-07', opp: 'Chelsea',                venue: 'H', time: '7:00 AM' },
     { date: '2026-11-21', opp: 'Aston Villa',            venue: 'A', time: '7:00 AM' },
+    { date: '2026-11-26', opp: 'Jagiellonia Białystok',  venue: 'H', time: '12:00 PM', comp: 'UEL' },
     { date: '2026-11-28', opp: 'Tottenham Hotspur',      venue: 'H', time: '7:00 AM' },
     { date: '2026-12-02', opp: 'Liverpool',              venue: 'A', time: '12:00 PM' },
     { date: '2026-12-05', opp: 'Newcastle United',       venue: 'A', time: '7:00 AM' },
+    { date: '2026-12-10', opp: 'AC Milan',               venue: 'A', time: '12:00 PM', comp: 'UEL' },
     { date: '2026-12-12', opp: 'Nottingham Forest',      venue: 'H', time: '7:00 AM' },
     { date: '2026-12-19', opp: 'Crystal Palace',         venue: 'H', time: '7:00 AM' },
     { date: '2026-12-26', opp: 'Everton',                venue: 'A', time: '7:00 AM' },
@@ -1168,7 +1192,9 @@ the packs of yellow-eyed wolves that are also
     { date: '2027-01-02', opp: 'Hull City',              venue: 'H', time: '7:00 AM' },
     { date: '2027-01-06', opp: 'Liverpool',              venue: 'H', time: '12:00 PM' },
     { date: '2027-01-16', opp: 'Chelsea',                venue: 'A', time: '7:00 AM' },
+    { date: '2027-01-21', opp: 'Anderlecht',             venue: 'A', time: '12:00 PM', comp: 'UEL' },
     { date: '2027-01-23', opp: 'Coventry City',          venue: 'H', time: '7:00 AM' },
+    { date: '2027-01-28', opp: 'Levski Sofia',           venue: 'H', time: '12:00 PM', comp: 'UEL' },
     { date: '2027-01-30', opp: 'Tottenham Hotspur',      venue: 'A', time: '7:00 AM' },
     { date: '2027-02-06', opp: 'Aston Villa',            venue: 'H', time: '7:00 AM' },
     { date: '2027-02-10', opp: 'Hull City',              venue: 'A', time: '12:00 PM' },
@@ -1225,14 +1251,16 @@ the packs of yellow-eyed wolves that are also
     const dateLabel = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
 
     let venueLabel;
-    if (next.venue === 'H') {
+    if (!next.venue) {
+      venueLabel = 'Venue TBC';
+    } else if (next.venue === 'H') {
       venueLabel = homeGround + ' (Home)';
     } else {
       const away = groundsMap[next.opp];
       venueLabel = away ? away + ' (Away)' : 'Away';
     }
 
-    oppEl.textContent = next.opp;
+    oppEl.textContent = next.comp ? next.opp + ' (' + next.comp + ')' : next.opp;
     dateEl.textContent = dateLabel;
     timeEl.textContent = next.time ? next.time + ' PT' : 'TBC';
     venueEl.textContent = venueLabel;
