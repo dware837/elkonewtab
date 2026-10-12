@@ -88,7 +88,7 @@
 
     .s1-divider { width: 1px; height: 36px; background: var(--e02); }
 
-    /* ── Main three-column row ── */
+    /* ── Main row (four columns) ── */
 
     .main-row {
       display: grid;
@@ -144,62 +144,29 @@
       grid-row: 1 / 3;
       align-self: stretch;
       /* Contribute zero height to grid row sizing, then stretch to
-         the rows as sized by the other columns. This keeps whatever
-         sits here (the poem and the standings links) from inflating
-         the rows and stretching the flower and palette boxes. */
+         the rows as sized by the other columns. This keeps the poem
+         and countdown from inflating the rows and stretching the
+         flower and palette boxes. */
       height: 0;
       min-height: 100%;
     }
 
     .right-col .s5 { flex: 0 0 auto; }
 
-    /* ── Standings column ── */
+    /* ── Next match column ── */
 
-    .standings-col {
+    .match-col {
       display: flex;
       flex-direction: column;
       gap: 10px;
       grid-column: 4;
       grid-row: 1 / 3;
       align-self: stretch;
-      /* Now holds the Next Match widget, which can be tall. Same
-         non-inflating trick as the right column: contribute zero
-         height to row sizing so the flower and palette are unaffected,
-         and let the widget overflow below the column when it is
-         taller than the space beside the standings links. */
+      /* Same non-inflating trick as the right column, so a long
+         Next Match list never stretches the flower and palette. */
       height: 0;
       min-height: 100%;
     }
-
-    .s10 { padding: 10px 12px; }
-
-    .s10-header {
-      font-size: 11px;
-      color: var(--e0D);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 8px;
-      padding-bottom: 5px;
-      border-bottom: 1px solid var(--e02);
-    }
-
-    .s10-links {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .s10-links li a {
-      display: block;
-      color: var(--e05);
-      text-decoration: none;
-      font-size: 13px;
-      padding: 7px 4px;
-      border-bottom: 1px solid var(--e02);
-    }
-
-    .s10-links li:last-child a { border-bottom: none; }
-    .s10-links li a:hover { color: var(--e0A); }
 
     /* ── Wikipedia bar ── */
 
@@ -241,7 +208,7 @@
 
     .s2 input::placeholder { color: var(--e04); }
 
-
+    /* ── Bookmarks ── */
 
     .s3 {
       display: grid;
@@ -357,12 +324,6 @@
     .s9 {
       padding: 10px 14px;
       flex: 0 0 auto;   /* always full natural height */
-      min-height: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      overflow: visible; /* show all four fixtures; the box may extend
-                            below the column, which is intended */
     }
 
     .s9-header {
@@ -370,14 +331,14 @@
       color: var(--e0D);
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       padding-bottom: 5px;
       border-bottom: 1px solid var(--e02);
     }
 
     .s9-fixture + .s9-fixture {
-      margin-top: 10px;
-      padding-top: 10px;
+      margin-top: 6px;
+      padding-top: 6px;
       border-top: 1px solid var(--e02);
     }
 
@@ -386,39 +347,64 @@
        fixtures. Green = match today, yellow = match tomorrow. */
     .s9-fixture.s9-today,
     .s9-fixture.s9-tomorrow {
-      padding: 8px 10px;
-      margin-top: 10px;
+      padding: 4px 7px;
+      margin-top: 6px;
     }
-    .s9-fixture:first-child.s9-today,
-    .s9-fixture:first-child.s9-tomorrow { margin-top: 0; }
+    .s9-header + .s9-fixture.s9-today,
+    .s9-header + .s9-fixture.s9-tomorrow { margin-top: 0; }
     .s9-fixture.s9-today    { border: 2px solid #7D8C68; }
     .s9-fixture.s9-tomorrow { border: 2px solid #B59C62; }
 
-    .s9-club {
-      font-size: 15px;
-      color: #7D8C68;
-      margin-bottom: 4px;
+    /* Club name with the FotMob link on the same line. */
+    .s9-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 1px;
     }
+
+    .s9-club {
+      font-size: 13px;
+      color: #7D8C68;
+    }
+
+    .s9-link {
+      flex-shrink: 0;
+      font-size: 10px;
+      color: #749688;
+      text-decoration: none;
+    }
+
+    .s9-link:hover { color: var(--e0A); text-decoration: underline; }
 
     .s9-opponent {
       font-size: 10px;
       color: #6F8996;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 6px;
+      letter-spacing: 0.06em;
+      margin-bottom: 2px;
     }
 
-    .s9-row {
+    /* Date on the left, kickoff on the right. */
+    .s9-when {
       display: flex;
       justify-content: space-between;
-      font-size: 12px;
+      font-size: 11px;
       color: var(--e06);
-      margin-bottom: 4px;
     }
 
-    .s9-row .s9-label { color: var(--e04); }
-
-    .s9-venue { font-size: 11px; color: var(--e03); margin-top: 6px; font-style: italic; }
+    /* One line only; long stadium names are trimmed with an ellipsis
+       (hover to see the full name). */
+    .s9-venue {
+      font-size: 10px;
+      color: var(--e03);
+      font-style: italic;
+      margin-top: 1px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
     /* ── Section 11: countdown ── */
 
@@ -574,7 +560,6 @@
               <li><a href="https://www.dazn.com/en-US/competition/Competition:b5udgm9vakjqz8dcmy5b2g0xt?tab=home">National League</a></li>
               <li><a href="https://plus.nwslsoccer.com/home?from=%2F&utm_source=nwsl&utm_medium=homepage&utm_campaign=nwslsoccer">NWSL</a></li>
               <li><a href="https://www.paramountplus.com/shows/scottish-professional-football-league/">SPFL</a></li>
-
             </ul>
           </div>
           <div class="bm-col">
@@ -595,7 +580,6 @@
               <li><a href="https://drive.google.com/drive/my-drive">Google Drive</a></li>
               <li><a href="https://drive.proton.me/u/2/cQ7L3gePuclsfx14t4-B3wboSdUtFATdAifLALnq8ocaTEUniKIzB58TCFTYHrwYQ-X4byyuYoKGUV4TNp0Z1Q==/folder/pW2-QMBHeSN1D2DE4V_I6t-rwIP0wrObHaXDB1VRGKCiHZMV4VGiyzZIDkG9gxpR6aY0pGzZEe96aWJzDKL2vA==">Proton Drive</a></li>
               <li><a href="https://mail.proton.me/u/2/inbox">Proton Mail</a></li>
-              
             </ul>
           </div>
         </div>
@@ -604,7 +588,7 @@
         </div>
       </div>
 
-      <!-- Right: poem + standings links -->
+      <!-- Right: poem -->
       <div class="right-col">
         <div class="box s5">
           <div class="s5-header">Verse of the Month</div>
@@ -623,54 +607,6 @@ the packs of yellow-eyed wolves that are also
 <em>have you noticed?</em> gone now.</div>
           <div class="poem-attr">— Mary Oliver, 1983</div>
         </div>
-        <div class="box s10">
-          <div class="s10-header">Standings</div>
-          <ul class="s10-links">
-            <li><a href="https://www.fotmob.com/leagues/47/table/premier-league">Premier League</a></li>
-            <li><a href="https://www.fotmob.com/leagues/48/table/championship">EFL Championship</a></li>
-            <li><a href="https://www.fotmob.com/leagues/108/table/league-one">EFL League One</a></li>
-            <li><a href="https://www.fotmob.com/leagues/109/table/league-two">EFL League Two</a></li>
-            <li><a href="https://www.fotmob.com/leagues/117/overview/national-league">National League</a></li>
-            <li><a href="https://www.fotmob.com/leagues/130/table/mls">MLS</a></li>
-            <li><a href="https://www.fotmob.com/leagues/9134/table/nwsl">NWSL</a></li>
-            
-          </ul>
-        </div>
-      </div>
-
-      <!-- Far right: next match -->
-      <div class="standings-col">
-        <div class="box s9">
-          <div class="s9-header">Next Match</div>
-          <div class="s9-fixture">
-            <div class="s9-club">Seattle Reign FC</div>
-            <div class="s9-opponent" id="sr-opponent">Loading...</div>
-            <div class="s9-row"><span class="s9-label">Date</span><span id="sr-date">—</span></div>
-            <div class="s9-row"><span class="s9-label">Kickoff</span><span id="sr-time">—</span></div>
-            <div class="s9-venue" id="sr-venue">—</div>
-          </div>
-          <div class="s9-fixture">
-            <div class="s9-club">Seattle Sounders FC</div>
-            <div class="s9-opponent" id="ss-opponent">Loading...</div>
-            <div class="s9-row"><span class="s9-label">Date</span><span id="ss-date">—</span></div>
-            <div class="s9-row"><span class="s9-label">Kickoff</span><span id="ss-time">—</span></div>
-            <div class="s9-venue" id="ss-venue">—</div>
-          </div>
-          <div class="s9-fixture">
-            <div class="s9-club">Sunderland AFC</div>
-            <div class="s9-opponent" id="su-opponent">Loading...</div>
-            <div class="s9-row"><span class="s9-label">Date</span><span id="su-date">—</span></div>
-            <div class="s9-row"><span class="s9-label">Kickoff</span><span id="su-time">—</span></div>
-            <div class="s9-venue" id="su-venue">—</div>
-          </div>
-          <div class="s9-fixture">
-            <div class="s9-club">Yeovil Town</div>
-            <div class="s9-opponent" id="yt-opponent">Loading...</div>
-            <div class="s9-row"><span class="s9-label">Date</span><span id="yt-date">—</span></div>
-            <div class="s9-row"><span class="s9-label">Kickoff</span><span id="yt-time">—</span></div>
-            <div class="s9-venue" id="yt-venue">—</div>
-          </div>
-        </div>
         <div class="box s11">
           <div class="s11-header">Countdown</div>
           <div>
@@ -678,6 +614,61 @@ the packs of yellow-eyed wolves that are also
           </div>
           <div class="s11-event" id="cd-event">—</div>
           <div class="s11-date" id="cd-date">—</div>
+        </div>
+      </div>
+
+      <!-- Far right: next match -->
+      <div class="match-col">
+        <div class="box s9">
+          <div class="s9-header">Next Match</div>
+          <div class="s9-fixture">
+            <div class="s9-top"><span class="s9-club">Partick Thistle</span><a class="s9-link" href="https://www.fotmob.com/teams/8426/overview">FotMob ↗</a></div>
+            <div class="s9-opponent" id="pt-opponent">Loading...</div>
+            <div class="s9-when"><span id="pt-date">—</span><span id="pt-time">—</span></div>
+            <div class="s9-venue" id="pt-venue">—</div>
+          </div>
+          <div class="s9-fixture">
+            <div class="s9-top"><span class="s9-club">Seattle Reign FC</span><a class="s9-link" href="https://www.fotmob.com/teams/433031/overview">FotMob ↗</a></div>
+            <div class="s9-opponent" id="sr-opponent">Loading...</div>
+            <div class="s9-when"><span id="sr-date">—</span><span id="sr-time">—</span></div>
+            <div class="s9-venue" id="sr-venue">—</div>
+          </div>
+          <div class="s9-fixture">
+            <div class="s9-top"><span class="s9-club">Seattle Sounders FC</span><a class="s9-link" href="https://www.fotmob.com/teams/130394/overview">FotMob ↗</a></div>
+            <div class="s9-opponent" id="ss-opponent">Loading...</div>
+            <div class="s9-when"><span id="ss-date">—</span><span id="ss-time">—</span></div>
+            <div class="s9-venue" id="ss-venue">—</div>
+          </div>
+          <div class="s9-fixture">
+            <div class="s9-top"><span class="s9-club">Sunderland AFC</span><a class="s9-link" href="https://www.fotmob.com/teams/8472/overview">FotMob ↗</a></div>
+            <div class="s9-opponent" id="su-opponent">Loading...</div>
+            <div class="s9-when"><span id="su-date">—</span><span id="su-time">—</span></div>
+            <div class="s9-venue" id="su-venue">—</div>
+          </div>
+          <div class="s9-fixture">
+            <div class="s9-top"><span class="s9-club">Sunderland Women</span><a class="s9-link" href="https://www.fotmob.com/teams/231478/overview">FotMob ↗</a></div>
+            <div class="s9-opponent" id="sw-opponent">Loading...</div>
+            <div class="s9-when"><span id="sw-date">—</span><span id="sw-time">—</span></div>
+            <div class="s9-venue" id="sw-venue">—</div>
+          </div>
+          <div class="s9-fixture">
+            <div class="s9-top"><span class="s9-club">Werder Bremen</span><a class="s9-link" href="https://www.fotmob.com/teams/8697/overview">FotMob ↗</a></div>
+            <div class="s9-opponent" id="wb-opponent">Loading...</div>
+            <div class="s9-when"><span id="wb-date">—</span><span id="wb-time">—</span></div>
+            <div class="s9-venue" id="wb-venue">—</div>
+          </div>
+          <div class="s9-fixture">
+            <div class="s9-top"><span class="s9-club">Werder Bremen Women</span><a class="s9-link" href="https://www.fotmob.com/teams/672089/overview">FotMob ↗</a></div>
+            <div class="s9-opponent" id="ww-opponent">Loading...</div>
+            <div class="s9-when"><span id="ww-date">—</span><span id="ww-time">—</span></div>
+            <div class="s9-venue" id="ww-venue">—</div>
+          </div>
+          <div class="s9-fixture">
+            <div class="s9-top"><span class="s9-club">Yeovil Town</span><a class="s9-link" href="https://www.fotmob.com/teams/10198/overview">FotMob ↗</a></div>
+            <div class="s9-opponent" id="yt-opponent">Loading...</div>
+            <div class="s9-when"><span id="yt-date">—</span><span id="yt-time">—</span></div>
+            <div class="s9-venue" id="yt-venue">—</div>
+          </div>
         </div>
       </div>
 
@@ -781,10 +772,12 @@ the packs of yellow-eyed wolves that are also
   setInterval(updateClock, 1000);
 
   // ── Sun times ────────────────────────────────────────────
+  // Sun times and weather are for Moses Lake, WA (47.1447, -119.2758).
+  // It is on Pacific time, so the clock above needs no change.
   async function fetchSunTimes() {
     try {
       const resp = await fetch(
-        'https://api.sunrise-sunset.org/json?lat=35.3733&lng=-119.0187&formatted=0'
+        'https://api.sunrise-sunset.org/json?lat=47.1447&lng=-119.2758&formatted=0'
       );
       const data = await resp.json();
       const toLocal = iso => new Date(iso).toLocaleTimeString('en-US', {
@@ -806,7 +799,7 @@ the packs of yellow-eyed wolves that are also
   async function fetchWeather() {
     try {
       const resp = await fetch(
-        'https://api.open-meteo.com/v1/forecast?latitude=35.3733&longitude=-119.0187&current_weather=true&temperature_unit=fahrenheit'
+        'https://api.open-meteo.com/v1/forecast?latitude=47.1447&longitude=-119.2758&current_weather=true&temperature_unit=fahrenheit'
       );
       const data = await resp.json();
       const cw = data.current_weather;
@@ -913,7 +906,6 @@ the packs of yellow-eyed wolves that are also
     'Wealdstone':             'Grosvenor Vale',
     'Woking':                 'Kingfield Stadium',
     'Worthing':               'Woodside Road',
-    'Yeovil Town':            'Huish Park',
   };
 
   // ── Fixtures ────────────────────────────────────────────
@@ -1158,7 +1150,6 @@ the packs of yellow-eyed wolves that are also
     'Newcastle United':       'St James\' Park',
     'Nottingham Forest':      'City Ground',
     'Tottenham Hotspur':      'Tottenham Hotspur Stadium',
-    'Sunderland':             'Stadium of Light',
     // Europa League away grounds
     'Torreense':              'Estádio Municipal de Leiria',   // UEL venue; not their usual ground
     'Lech Poznań':            'Stadion Miejski',               // sponsor name Enea Stadion
@@ -1215,9 +1206,259 @@ the packs of yellow-eyed wolves that are also
     { date: '2027-05-30', opp: 'Manchester City',        venue: 'H', time: '8:00 AM' },
   ];
 
+  // ── New clubs (added 11 Oct 2026) ───────────────────────
+  // Conventions match the blocks above: dates and times are Pacific,
+  // already converted; time: null shows "TBC". Grounds use the
+  // traditional name where one exists, sponsor-only names are marked.
+  //
+  // A fixture with a dateEnd has only been placed in a window so far
+  // (the Bundesliga and Frauen-Bundesliga set exact days and kickoffs
+  // a few weeks ahead). The widget shows the window, e.g. "Dec 4-6",
+  // until you replace it with the real date, time and no dateEnd.
+
+  // Sunderland Women — Women's Super League 2 2026/27 plus
+  // the Subway Players Cup (Women's League Cup) league phase.
+  // League list from the 2026-27 WSL 2 Wikipedia article and
+  // footballwebpages.co.uk; cup dates, kickoffs and venues from
+  // wslfootball.com. Checked 11 Oct 2026. Kickoffs are release-day
+  // times and may move for TV.
+  // Still to come once drawn: Players Cup knockouts if they finish in
+  // the top eight of the league phase (QF 13-14 Jan, SF 10-11 Feb,
+  // final 13-14 Mar 2027), and the Women's FA Cup, not yet drawn
+  // for WSL 2 clubs.
+  const swGrounds = {
+    'Birmingham City':          'St Andrew\'s @ Knighthead Park', // sponsor name
+    'Bristol City':             'Ashton Gate',
+    'Burnley':                  'County Ground',
+    'Durham':                   'Maiden Castle',
+    'Ipswich Town':             'Colchester Community Stadium',
+    'Leicester City':           'King Power Stadium',          // sponsor name only
+    'Liverpool':                'St Helens Stadium',
+    'Newcastle United':         'Gateshead International Stadium',
+    'Nottingham Forest':        'City Ground',
+    'Sheffield United':         'Bramall Lane',
+    'Southampton':              'Silverlake Stadium',          // sponsor name only
+    'Watford':                  'Vicarage Road',
+    'Wolverhampton Wanderers':  'New Bucks Head',
+  };
+
+  const swFixtures = [
+    { date: '2026-09-06', opp: 'Bristol City', venue: 'H', time: null },
+    { date: '2026-09-13', opp: 'Burnley', venue: 'A', time: null },
+    { date: '2026-09-20', opp: 'Southampton', venue: 'H', time: null },
+    { date: '2026-09-23', opp: 'Liverpool', venue: 'A', time: '11:00 AM', comp: 'League Cup' },
+    { date: '2026-09-27', opp: 'Watford', venue: 'A', time: null },
+    { date: '2026-10-04', opp: 'Leicester City', venue: 'H', time: null },
+    { date: '2026-10-18', opp: 'Newcastle United', venue: 'A', time: '6:00 AM', comp: 'League Cup' },
+    { date: '2026-10-25', opp: 'Ipswich Town', venue: 'A', time: '7:00 AM' },
+    { date: '2026-11-01', opp: 'Sheffield United', venue: 'H', time: '6:00 AM', comp: 'League Cup' },
+    { date: '2026-11-08', opp: 'Durham', venue: 'A', time: '4:00 AM' },
+    { date: '2026-11-11', opp: 'Birmingham City', venue: 'A', time: '11:00 AM', comp: 'League Cup' },
+    { date: '2026-11-15', opp: 'Newcastle United', venue: 'H', time: '6:00 AM' },
+    { date: '2026-11-22', opp: 'Burnley', venue: 'H', time: '6:00 AM', comp: 'League Cup' },
+    { date: '2026-12-16', opp: 'Everton', venue: 'H', time: '11:00 AM', comp: 'League Cup' },
+    { date: '2026-12-20', opp: 'Sheffield United', venue: 'A', time: '6:00 AM' },
+    { date: '2027-01-10', opp: 'Wolverhampton Wanderers', venue: 'H', time: '6:00 AM' },
+    { date: '2027-01-24', opp: 'Nottingham Forest', venue: 'A', time: '6:00 AM' },
+    { date: '2027-01-27', opp: 'Burnley', venue: 'H', time: '11:00 AM' },
+    { date: '2027-01-31', opp: 'Durham', venue: 'H', time: '6:00 AM' },
+    { date: '2027-02-07', opp: 'Wolverhampton Wanderers', venue: 'A', time: '6:00 AM' },
+    { date: '2027-02-14', opp: 'Ipswich Town', venue: 'H', time: '6:00 AM' },
+    { date: '2027-03-14', opp: 'Bristol City', venue: 'A', time: '7:00 AM' },
+    { date: '2027-03-21', opp: 'Nottingham Forest', venue: 'H', time: '7:00 AM' }, // DST gap
+    { date: '2027-03-28', opp: 'Newcastle United', venue: 'A', time: '6:00 AM' },
+    { date: '2027-04-04', opp: 'Sheffield United', venue: 'H', time: '6:00 AM' },
+    { date: '2027-04-11', opp: 'Southampton', venue: 'A', time: '6:00 AM' },
+    { date: '2027-05-02', opp: 'Leicester City', venue: 'A', time: '7:00 AM' },
+    { date: '2027-05-08', opp: 'Watford', venue: 'H', time: '5:00 AM' },
+  ];
+
+  // Partick Thistle — Scottish Championship 2026/27.
+  // Cross-checked between footballwebpages.co.uk and FotMob on
+  // 11 Oct 2026. League Cup run ended in round 2 (lost 1-0 at Hibs).
+  // Saturday 3pm kickoffs are release-day times; Friday and midweek
+  // games are announced individually.
+  // Still to come once drawn: the Scottish Cup. Championship clubs
+  // normally enter at the third round in late November (there is a
+  // free Saturday on 28 Nov); the fourth round is Sat 16 Jan 2027,
+  // also a free league weekend.
+  const ptGrounds = {
+    'Arbroath':                     'Gayfield Park',
+    'Ayr United':                   'Somerset Park',
+    'Dunfermline Athletic':         'East End Park',
+    'Greenock Morton':              'Cappielow',
+    'Inverness Caledonian Thistle': 'Caledonian Stadium',
+    'Livingston':                   'Almondvale Stadium',
+    'Queen\'s Park':                'Lesser Hampden',
+    'Raith Rovers':                 'Stark\'s Park',
+    'Stenhousemuir':                'Ochilview Park',
+  };
+
+  const ptFixtures = [
+    { date: '2026-08-01', opp: 'Greenock Morton', venue: 'A', time: null },
+    { date: '2026-08-07', opp: 'Livingston', venue: 'H', time: null },
+    { date: '2026-08-21', opp: 'Inverness Caledonian Thistle', venue: 'A', time: null },
+    { date: '2026-08-29', opp: 'Queen\'s Park', venue: 'H', time: null },
+    { date: '2026-09-05', opp: 'Ayr United', venue: 'H', time: null },
+    { date: '2026-09-15', opp: 'Stenhousemuir', venue: 'A', time: null },
+    { date: '2026-09-19', opp: 'Raith Rovers', venue: 'H', time: null },
+    { date: '2026-10-03', opp: 'Arbroath', venue: 'H', time: null },
+    { date: '2026-10-10', opp: 'Livingston', venue: 'A', time: null },
+    { date: '2026-10-16', opp: 'Ayr United', venue: 'A', time: '11:30 AM' }, // BBC Scotland
+    { date: '2026-10-20', opp: 'Dunfermline Athletic', venue: 'A', time: '11:45 AM' },
+    { date: '2026-10-24', opp: 'Stenhousemuir', venue: 'H', time: '7:00 AM' },
+    { date: '2026-10-31', opp: 'Greenock Morton', venue: 'H', time: '8:00 AM' }, // DST gap
+    { date: '2026-11-07', opp: 'Queen\'s Park', venue: 'A', time: '7:00 AM' },
+    { date: '2026-11-14', opp: 'Inverness Caledonian Thistle', venue: 'H', time: '7:00 AM' },
+    { date: '2026-11-21', opp: 'Raith Rovers', venue: 'A', time: '7:00 AM' },
+    { date: '2026-12-05', opp: 'Dunfermline Athletic', venue: 'H', time: '7:00 AM' },
+    { date: '2026-12-12', opp: 'Arbroath', venue: 'A', time: '7:00 AM' },
+    { date: '2026-12-19', opp: 'Ayr United', venue: 'H', time: '7:00 AM' },
+    { date: '2026-12-26', opp: 'Queen\'s Park', venue: 'H', time: '7:00 AM' },
+    { date: '2027-01-02', opp: 'Stenhousemuir', venue: 'A', time: '7:00 AM' },
+    { date: '2027-01-09', opp: 'Livingston', venue: 'H', time: '7:00 AM' },
+    { date: '2027-01-23', opp: 'Greenock Morton', venue: 'A', time: '7:00 AM' },
+    { date: '2027-01-30', opp: 'Inverness Caledonian Thistle', venue: 'A', time: '7:00 AM' },
+    { date: '2027-02-13', opp: 'Raith Rovers', venue: 'H', time: '7:00 AM' },
+    { date: '2027-02-20', opp: 'Dunfermline Athletic', venue: 'A', time: '7:00 AM' },
+    { date: '2027-02-27', opp: 'Arbroath', venue: 'H', time: '7:00 AM' },
+    { date: '2027-03-06', opp: 'Ayr United', venue: 'A', time: '7:00 AM' },
+    { date: '2027-03-13', opp: 'Queen\'s Park', venue: 'A', time: '7:00 AM' },
+    { date: '2027-03-20', opp: 'Stenhousemuir', venue: 'H', time: '8:00 AM' }, // DST gap
+    { date: '2027-03-27', opp: 'Raith Rovers', venue: 'A', time: '8:00 AM' }, // DST gap
+    { date: '2027-04-03', opp: 'Inverness Caledonian Thistle', venue: 'H', time: '7:00 AM' },
+    { date: '2027-04-10', opp: 'Greenock Morton', venue: 'H', time: '7:00 AM' },
+    { date: '2027-04-17', opp: 'Livingston', venue: 'A', time: '7:00 AM' },
+    { date: '2027-04-24', opp: 'Dunfermline Athletic', venue: 'H', time: '7:00 AM' },
+    { date: '2027-04-30', opp: 'Arbroath', venue: 'A', time: '11:45 AM' },
+  ];
+
+  // Werder Bremen — Bundesliga 2026/27 plus the DFB-Pokal. Dates and
+  // windows from anstosszeiten.de and hessenschau.de; the Pokal tie
+  // from the DFB's second-round schedule (10 Sep 2026). Checked
+  // 11 Oct 2026. Matchdays 1-11 and 34 have exact kickoffs; the DFL
+  // fixes the rest in batches, so update those windows as they come.
+  // German kickoffs convert to Pacific with the same DST rule as the
+  // UK games (Germany changes clocks on the same days), minus 9 hours
+  // most of the year, minus 8 in the gap windows. No European games
+  // this season. If they beat Dortmund, add the Pokal round of 16
+  // by hand once it is drawn.
+  const wbGrounds = {
+    'Bayer Leverkusen':          'BayArena',
+    'Bayern Munich':             'Allianz Arena',              // sponsor name only
+    'Borussia Dortmund':         'Westfalenstadion',
+    'Borussia Mönchengladbach':  'Borussia-Park',
+    'Eintracht Frankfurt':       'Waldstadion',
+    'FC Augsburg':               'WWK Arena',                  // sponsor name
+    'Hamburger SV':              'Volksparkstadion',
+    'Mainz 05':                  'Mewa Arena',                 // sponsor name only
+    'RB Leipzig':                'Zentralstadion',
+    'SC Freiburg':               'Europa-Park Stadion',        // sponsor name only
+    'SC Paderborn':              'Home Deluxe Arena',          // sponsor name only
+    'Schalke 04':                'Arena AufSchalke',
+    'SV Elversberg':             'Ursapharm-Arena an der Kaiserlinde', // sponsor name
+    'TSG Hoffenheim':            'Rhein-Neckar-Arena',
+    'Union Berlin':              'Stadion An der Alten Försterei',
+    'VfB Stuttgart':             'Neckarstadion',
+    '1. FC Köln':                'Müngersdorfer Stadion',
+  };
+
+  const wbFixtures = [
+    { date: '2026-08-30', opp: 'SC Freiburg', venue: 'A', time: null },
+    { date: '2026-09-05', opp: 'RB Leipzig', venue: 'H', time: null },
+    { date: '2026-09-12', opp: '1. FC Köln', venue: 'A', time: null },
+    { date: '2026-09-19', opp: 'FC Augsburg', venue: 'H', time: null },
+    { date: '2026-10-09', opp: 'Borussia Dortmund', venue: 'A', time: null },
+    { date: '2026-10-17', opp: 'SC Paderborn', venue: 'H', time: '6:30 AM' },
+    { date: '2026-10-24', opp: 'Mainz 05', venue: 'A', time: '6:30 AM' },
+    { date: '2026-10-27', opp: 'Borussia Dortmund', venue: 'A', time: '12:45 PM', comp: 'DFB-Pokal' }, // DST gap
+    { date: '2026-10-31', opp: 'TSG Hoffenheim', venue: 'H', time: '7:30 AM' }, // DST gap
+    { date: '2026-11-07', opp: 'VfB Stuttgart', venue: 'A', time: '9:30 AM' },
+    { date: '2026-11-22', opp: 'Hamburger SV', venue: 'H', time: '8:30 AM' },
+    { date: '2026-11-27', opp: 'Borussia Mönchengladbach', venue: 'H', time: '11:30 AM' },
+    { date: '2026-12-04', dateEnd: '2026-12-06', opp: 'Eintracht Frankfurt', venue: 'A', time: null },
+    { date: '2026-12-11', dateEnd: '2026-12-13', opp: 'Bayer Leverkusen', venue: 'H', time: null },
+    { date: '2026-12-18', dateEnd: '2026-12-20', opp: 'Bayern Munich', venue: 'A', time: null },
+    { date: '2027-01-08', dateEnd: '2027-01-10', opp: 'Union Berlin', venue: 'H', time: null },
+    { date: '2027-01-12', dateEnd: '2027-01-14', opp: 'Schalke 04', venue: 'A', time: null }, // midweek
+    { date: '2027-01-15', dateEnd: '2027-01-17', opp: 'SV Elversberg', venue: 'H', time: null },
+    { date: '2027-01-22', dateEnd: '2027-01-24', opp: 'SC Freiburg', venue: 'H', time: null },
+    { date: '2027-01-29', dateEnd: '2027-01-31', opp: 'RB Leipzig', venue: 'A', time: null },
+    { date: '2027-02-05', dateEnd: '2027-02-07', opp: '1. FC Köln', venue: 'H', time: null },
+    { date: '2027-02-12', dateEnd: '2027-02-14', opp: 'FC Augsburg', venue: 'A', time: null },
+    { date: '2027-02-19', dateEnd: '2027-02-21', opp: 'Borussia Dortmund', venue: 'H', time: null },
+    { date: '2027-02-26', dateEnd: '2027-02-28', opp: 'SC Paderborn', venue: 'A', time: null },
+    { date: '2027-03-02', dateEnd: '2027-03-04', opp: 'Mainz 05', venue: 'H', time: null }, // midweek
+    { date: '2027-03-05', dateEnd: '2027-03-07', opp: 'TSG Hoffenheim', venue: 'A', time: null },
+    { date: '2027-03-12', dateEnd: '2027-03-14', opp: 'VfB Stuttgart', venue: 'H', time: null },
+    { date: '2027-03-19', dateEnd: '2027-03-21', opp: 'Hamburger SV', venue: 'A', time: null },
+    { date: '2027-04-02', dateEnd: '2027-04-04', opp: 'Borussia Mönchengladbach', venue: 'A', time: null },
+    { date: '2027-04-09', dateEnd: '2027-04-11', opp: 'Eintracht Frankfurt', venue: 'H', time: null },
+    { date: '2027-04-16', dateEnd: '2027-04-18', opp: 'Bayer Leverkusen', venue: 'A', time: null },
+    { date: '2027-04-23', dateEnd: '2027-04-25', opp: 'Bayern Munich', venue: 'H', time: null },
+    { date: '2027-05-07', dateEnd: '2027-05-09', opp: 'Union Berlin', venue: 'A', time: null },
+    { date: '2027-05-14', dateEnd: '2027-05-16', opp: 'Schalke 04', venue: 'H', time: null },
+    { date: '2027-05-22', opp: 'SV Elversberg', venue: 'A', time: '6:30 AM' }, // final matchday
+  ];
+
+  // Werder Bremen Women — Google Pixel Frauen-Bundesliga 2026/27 plus
+  // the DFB-Pokal der Frauen. Matchday windows and the confirmed
+  // kickoffs (matchdays 7 and 9) from the DFB data centre, checked
+  // 11 Oct 2026. The Pokal tie at Mainz on 31 Oct is from FotMob only.
+  // Home games are usually at Weserstadion Platz 11; a few big ones
+  // move to the main Weserstadion, so edit the home ground by hand
+  // when one is announced.
+  const wwGrounds = {
+    'Bayer Leverkusen':     'Ulrich-Haberland-Stadion',
+    'Bayern Munich':        'FC Bayern Campus',
+    'Eintracht Frankfurt':  'Stadion am Brentanobad',
+    'Hamburger SV':         'Volksparkstadion',
+    'Mainz 05':             'Bruchwegstadion',
+    'RB Leipzig':           'Sportanlage Gontardweg',
+    'SC Freiburg':          'Dreisamstadion',
+    'TSG Hoffenheim':       'Dietmar-Hopp-Stadion',
+    'Union Berlin':         'Stadion An der Alten Försterei',
+    'VfB Stuttgart':        'Stadion Hafenbahnstraße',
+    'VfL Wolfsburg':        'AOK Stadion',                 // sponsor name only
+    '1. FC Köln':           'Franz-Kremer-Stadion',
+    '1. FC Nürnberg':       'Max-Morlock-Stadion',
+  };
+
+  const wwFixtures = [
+    { date: '2026-08-24', opp: 'Mainz 05', venue: 'A', time: null },
+    { date: '2026-08-30', opp: 'RB Leipzig', venue: 'H', time: null },
+    { date: '2026-09-06', opp: 'VfL Wolfsburg', venue: 'A', time: null },
+    { date: '2026-09-11', opp: 'Hamburger SV', venue: 'H', time: null },
+    { date: '2026-09-21', opp: 'VfB Stuttgart', venue: 'H', time: null },
+    { date: '2026-09-26', opp: 'VfL Bochum', venue: 'A', time: null, comp: 'DFB-Pokal' },
+    { date: '2026-10-02', opp: 'Bayer Leverkusen', venue: 'A', time: null },
+    { date: '2026-10-18', opp: 'TSG Hoffenheim', venue: 'H', time: '7:00 AM' },
+    { date: '2026-10-23', dateEnd: '2026-10-26', opp: 'SC Freiburg', venue: 'H', time: null },
+    { date: '2026-10-31', opp: 'Mainz 05', venue: 'A', time: '6:00 AM', comp: 'DFB-Pokal' }, // DST gap; date and time from FotMob only
+    { date: '2026-11-06', opp: 'Bayern Munich', venue: 'A', time: '9:30 AM' },
+    { date: '2026-11-13', dateEnd: '2026-11-16', opp: 'Union Berlin', venue: 'H', time: null },
+    { date: '2026-11-20', dateEnd: '2026-11-23', opp: '1. FC Köln', venue: 'A', time: null },
+    { date: '2026-12-11', dateEnd: '2026-12-14', opp: 'Eintracht Frankfurt', venue: 'H', time: null },
+    { date: '2026-12-18', dateEnd: '2026-12-21', opp: '1. FC Nürnberg', venue: 'A', time: null },
+    { date: '2027-01-15', dateEnd: '2027-01-18', opp: 'Mainz 05', venue: 'H', time: null },
+    { date: '2027-01-22', dateEnd: '2027-01-25', opp: 'RB Leipzig', venue: 'A', time: null },
+    { date: '2027-01-29', dateEnd: '2027-02-01', opp: 'VfL Wolfsburg', venue: 'H', time: null },
+    { date: '2027-02-05', dateEnd: '2027-02-08', opp: 'Hamburger SV', venue: 'A', time: null },
+    { date: '2027-02-12', dateEnd: '2027-02-15', opp: 'VfB Stuttgart', venue: 'A', time: null },
+    { date: '2027-02-19', dateEnd: '2027-02-22', opp: 'Bayer Leverkusen', venue: 'H', time: null },
+    { date: '2027-03-12', dateEnd: '2027-03-15', opp: 'TSG Hoffenheim', venue: 'A', time: null },
+    { date: '2027-03-19', dateEnd: '2027-03-22', opp: 'SC Freiburg', venue: 'A', time: null },
+    { date: '2027-03-27', dateEnd: '2027-03-29', opp: 'Bayern Munich', venue: 'H', time: null },
+    { date: '2027-04-09', dateEnd: '2027-04-12', opp: 'Union Berlin', venue: 'A', time: null },
+    { date: '2027-04-30', dateEnd: '2027-05-03', opp: '1. FC Köln', venue: 'H', time: null },
+    { date: '2027-05-07', dateEnd: '2027-05-10', opp: 'Eintracht Frankfurt', venue: 'A', time: null },
+    { date: '2027-05-23', opp: '1. FC Nürnberg', venue: 'H', time: null }, // final matchday, all kick off together; time TBC
+  ];
+
   function renderNextMatch(fixtures, prefix, homeGround, groundsMap) {
     const todayStr = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Los_Angeles' }); // YYYY-MM-DD
-    const next = fixtures.find(f => f.date >= todayStr);
+    // A fixture with a dateEnd stays current until its window closes.
+    const next = fixtures.find(f => (f.dateEnd || f.date) >= todayStr);
 
     const oppEl = document.getElementById(prefix + '-opponent');
     const dateEl = document.getElementById(prefix + '-date');
@@ -1236,6 +1477,7 @@ the packs of yellow-eyed wolves that are also
       dateEl.textContent = '—';
       timeEl.textContent = '—';
       venueEl.textContent = '';
+      venueEl.title = '';
       return;
     }
 
@@ -1243,14 +1485,25 @@ the packs of yellow-eyed wolves that are also
     tomorrow.setDate(tomorrow.getDate() + 1);
     const tomorrowStr = tomorrow.toLocaleDateString('en-CA');
 
-    if (next.date === todayStr) {
+    // Only highlight fixtures with a fixed date, not a window.
+    if (!next.dateEnd && next.date === todayStr) {
       fixtureEl.classList.add('s9-today');
-    } else if (next.date === tomorrowStr) {
+    } else if (!next.dateEnd && next.date === tomorrowStr) {
       fixtureEl.classList.add('s9-tomorrow');
     }
 
     const d = new Date(next.date + 'T12:00:00');
-    const dateLabel = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+    let dateLabel;
+    if (next.dateEnd) {
+      // Window not yet fixed: "Dec 4-6" or "Jan 29 - Feb 1".
+      const e = new Date(next.dateEnd + 'T12:00:00');
+      const mon = x => x.toLocaleDateString('en-US', { month: 'short' });
+      dateLabel = d.getMonth() === e.getMonth()
+        ? mon(d) + ' ' + d.getDate() + '-' + e.getDate()
+        : mon(d) + ' ' + d.getDate() + ' - ' + mon(e) + ' ' + e.getDate();
+    } else {
+      dateLabel = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+    }
 
     let venueLabel;
     if (!next.venue) {
@@ -1266,12 +1519,17 @@ the packs of yellow-eyed wolves that are also
     dateEl.textContent = dateLabel;
     timeEl.textContent = next.time ? next.time + ' PT' : 'TBC';
     venueEl.textContent = venueLabel;
+    venueEl.title = venueLabel;
   }
 
   renderNextMatch(ytFixtures, 'yt', 'Huish Park', grounds);
   renderNextMatch(srFixtures, 'sr', 'Lumen Field', srGrounds);
   renderNextMatch(ssFixtures, 'ss', 'Lumen Field', ssGrounds);
   renderNextMatch(suFixtures, 'su', 'Stadium of Light', suGrounds);
+  renderNextMatch(swFixtures, 'sw', 'Eppleton CW', swGrounds);
+  renderNextMatch(ptFixtures, 'pt', 'Firhill Stadium', ptGrounds);
+  renderNextMatch(wbFixtures, 'wb', 'Weserstadion', wbGrounds);
+  renderNextMatch(wwFixtures, 'ww', 'Weserstadion Platz 11', wwGrounds);
 
   // ── Countdown ────────────────────────────────────────────
   // EDIT THESE TWO LINES ONLY. Date is YYYY-MM-DD.
