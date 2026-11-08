@@ -622,10 +622,22 @@ the packs of yellow-eyed wolves that are also
         <div class="box s9">
           <div class="s9-header">Next Match</div>
           <div class="s9-fixture">
+            <div class="s9-top"><span class="s9-club">Oakland Roots SC</span><a class="s9-link" href="https://www.fotmob.com/teams/1130413/overview">FotMob ↗</a></div>
+            <div class="s9-opponent" id="or-opponent">Loading...</div>
+            <div class="s9-when"><span id="or-date">—</span><span id="or-time">—</span></div>
+            <div class="s9-venue" id="or-venue">—</div>
+          </div>
+          <div class="s9-fixture">
             <div class="s9-top"><span class="s9-club">Partick Thistle</span><a class="s9-link" href="https://www.fotmob.com/teams/8426/overview">FotMob ↗</a></div>
             <div class="s9-opponent" id="pt-opponent">Loading...</div>
             <div class="s9-when"><span id="pt-date">—</span><span id="pt-time">—</span></div>
             <div class="s9-venue" id="pt-venue">—</div>
+          </div>
+          <div class="s9-fixture">
+            <div class="s9-top"><span class="s9-club">SC Heerenveen</span><a class="s9-link" href="https://www.fotmob.com/teams/10228/overview">FotMob ↗</a></div>
+            <div class="s9-opponent" id="hv-opponent">Loading...</div>
+            <div class="s9-when"><span id="hv-date">—</span><span id="hv-time">—</span></div>
+            <div class="s9-venue" id="hv-venue">—</div>
           </div>
           <div class="s9-fixture">
             <div class="s9-top"><span class="s9-club">Seattle Reign FC</span><a class="s9-link" href="https://www.fotmob.com/teams/433031/overview">FotMob ↗</a></div>
@@ -646,7 +658,7 @@ the packs of yellow-eyed wolves that are also
             <div class="s9-venue" id="su-venue">—</div>
           </div>
           <div class="s9-fixture">
-            <div class="s9-top"><span class="s9-club">Sunderland Women</span><a class="s9-link" href="https://www.fotmob.com/teams/231478/overview">FotMob ↗</a></div>
+            <div class="s9-top"><span class="s9-club">Sunderland AFC Women</span><a class="s9-link" href="https://www.fotmob.com/teams/231478/overview">FotMob ↗</a></div>
             <div class="s9-opponent" id="sw-opponent">Loading...</div>
             <div class="s9-when"><span id="sw-date">—</span><span id="sw-time">—</span></div>
             <div class="s9-venue" id="sw-venue">—</div>
@@ -906,6 +918,9 @@ the packs of yellow-eyed wolves that are also
     'Wealdstone':             'Grosvenor Vale',
     'Woking':                 'Kingfield Stadium',
     'Worthing':               'Woodside Road',
+    // FA Cup 2026/27
+    'Leatherhead':            'Fetcham Grove',
+    'Chesterfield':           'SMH Group Stadium',          // sponsor name only
   };
 
   // ── Fixtures ────────────────────────────────────────────
@@ -922,14 +937,14 @@ the packs of yellow-eyed wolves that are also
   // kickoff is published up front in this division, so no entry is
   // null; anything that later moves for TV needs editing by hand.
   //
-  // Cup placeholders (comp set, opp/venue/time TBC) mark the rounds
-  // Yeovil enter, using the FA's 2026/27 round dates:
-  //   FA Cup 4th Qualifying Round: Sat 17 Oct 2026 (draw after 3QR)
-  //   FA Trophy 3rd Round:         Sat 12 Dec 2026
-  // Fill in opponent, venue ('H'/'A') and kickoff once drawn. A 3pm UK
-  // kickoff would be 7:00 AM PT on both dates. If they win the FA Cup
-  // tie, add the 1st Round (Sat 7 Nov 2026); if they win the Trophy tie,
-  // the 4th Round is Sat 16 Jan 2027. If they go out, delete later rounds.
+  // FA Cup 2026/27 (updated 8 Nov 2026): drew 3-3 at Leatherhead in the
+  // 4th Qualifying Round, won the replay 5-2, then went out 4-3 at
+  // Chesterfield in the 1st Round on 7 Nov. No more FA Cup games.
+  //
+  // FA Trophy placeholder (comp set, opp/venue/time TBC) marks the round
+  // Yeovil enter: 3rd Round, Sat 12 Dec 2026. Fill in opponent, venue
+  // ('H'/'A') and kickoff once drawn. A 3pm UK kickoff is 7:00 AM PT.
+  // If they win, the 4th Round is Sat 16 Jan 2027.
   const ytFixtures = [
     { date: '2026-08-08', opp: 'Scunthorpe United',       venue: 'A', time: '7:00 AM' },
     { date: '2026-08-15', opp: 'Carlisle United',         venue: 'H', time: '7:00 AM' },
@@ -944,11 +959,13 @@ the packs of yellow-eyed wolves that are also
     { date: '2026-09-29', opp: 'Worthing',                venue: 'H', time: '11:45 AM' },
     { date: '2026-10-03', opp: 'Boston United',           venue: 'H', time: '7:00 AM' },
     { date: '2026-10-10', opp: 'Wealdstone',              venue: 'A', time: '7:00 AM' },
-    { date: '2026-10-17', opp: 'Opponent TBC',            venue: null, time: null, comp: 'FA Cup' },
+    { date: '2026-10-17', opp: 'Leatherhead',             venue: 'A', time: '7:00 AM',  comp: 'FA Cup' },  // 3-3
+    { date: '2026-10-20', opp: 'Leatherhead',             venue: 'H', time: '11:45 AM', comp: 'FA Cup' },  // replay, won 5-2
     { date: '2026-10-24', opp: 'Altrincham',              venue: 'H', time: '7:00 AM' },
     { date: '2026-10-27', opp: 'Hornchurch',              venue: 'A', time: '12:45 PM' }, // DST gap
     { date: '2026-10-31', opp: 'FC Halifax Town',         venue: 'A', time: '5:30 AM' }, // DST gap
-    { date: '2026-11-14', opp: 'Boreham Wood',            venue: 'H', time: '7:00 AM' },
+    { date: '2026-11-07', opp: 'Chesterfield',            venue: 'A', time: '7:00 AM',  comp: 'FA Cup' },  // lost 4-3
+    { date: '2026-11-14', opp: 'Boreham Wood',           venue: 'H', time: '7:00 AM' },
     { date: '2026-11-21', opp: 'Forest Green Rovers',     venue: 'H', time: '9:30 AM' },
     { date: '2026-11-24', opp: 'Eastleigh',               venue: 'A', time: '11:45 AM' },
     { date: '2026-11-28', opp: 'Harrogate Town',          venue: 'A', time: '7:00 AM' },
@@ -985,7 +1002,11 @@ the packs of yellow-eyed wolves that are also
   // "How to Watch" page (times published in PT, no conversion needed)
   // and cross-checked against the Wikipedia season article on
   // 17 Sep 2026. NWSL venue names are almost all sponsor names, so
-  // expect some of these to go stale. League matches only.
+  // expect some of these to go stale.
+  // Updated 8 Nov 2026: Reign finished 8th and lost their playoff
+  // quarterfinal at Gotham on 8 Nov, so the 2026 season is over and
+  // the widget shows "Season complete". Replace this list with the
+  // 2027 schedule once the NWSL releases it.
   const srGrounds = {
     'Angel City FC':          'BMO Stadium',
     'Bay FC':                 'PayPal Park',
@@ -994,7 +1015,7 @@ the packs of yellow-eyed wolves that are also
     'Denver Summit FC':       'Centennial Stadium',
     'Houston Dash':           'Shell Energy Stadium',
     'Kansas City Current':    'CPKC Stadium',
-    'NJ/NY Gotham FC':        'Icahn Stadium',   // one-off venue for the Jul 18 fixture
+    'NJ/NY Gotham FC':        'Sports Illustrated Stadium', // sponsor name; Jul 18 game was a one-off at Icahn Stadium
     'North Carolina Courage': 'First Horizon Stadium',
     'Orlando Pride':          'Inter&Co Stadium',
     'Portland Thorns FC':     'Providence Park',
@@ -1040,6 +1061,10 @@ the packs of yellow-eyed wolves that are also
     { date: '2026-10-18', opp: 'Chicago Stars FC',       venue: 'A', time: '4:00 PM' },
     { date: '2026-10-23', opp: 'Utah Royals FC',         venue: 'A', time: '6:30 PM' },
     { date: '2026-11-01', opp: 'Orlando Pride',          venue: 'H', time: '2:00 PM' },
+    // Playoff QF, Sun 8 Nov 2026, at NJ/NY Gotham FC, 9:30 AM PT: lost.
+    // Left out of the array on purpose: the widget keeps a same-day
+    // match up until midnight, and this one should read "Season
+    // complete" straight away.
   ];
 
   // Seattle Sounders FC — MLS 2026. Compiled from soundersfc.com press
@@ -1049,7 +1074,14 @@ the packs of yellow-eyed wolves that are also
   // Vancouver away match moved from Oct 31 to Nov 1. Kickoffs for
   // matches already played are as announced and a few that moved on
   // the day may be slightly off; the widget never displays them.
-  // League matches only (no Champions Cup or Leagues Cup).
+  // League matches only (no Champions Cup or Leagues Cup), plus the
+  // MLS Cup Playoffs.
+  // Updated 8 Nov 2026: beat LAFC 2-1 on Decision Day to take the
+  // West's No. 8 seed. Wild Card vs No. 9 Real Salt Lake at Lumen
+  // Field, Thu 19 Nov, 7:00 PM PT (MLS / soundersfc.com). The winner
+  // plays a best-of-3 Round One series against No. 1 Vancouver
+  // (Game 1 at BC Place); MLS has not set those dates yet, so add
+  // them by hand if Seattle win.
   // Eastern Conference clubs Seattle only hosts this season (Chicago
   // Fire, New York Red Bulls, CF Montréal) are omitted from the
   // grounds map since no away venue is ever needed for them.
@@ -1108,7 +1140,8 @@ the packs of yellow-eyed wolves that are also
     { date: '2026-10-24', opp: 'San Diego FC',           venue: 'A', time: '7:30 PM' },
     { date: '2026-10-28', opp: 'Houston Dynamo FC',      venue: 'H', time: '7:30 PM' },
     { date: '2026-11-01', opp: 'Vancouver Whitecaps FC', venue: 'A', time: '1:30 PM' }, // moved from Oct 31
-    { date: '2026-11-07', opp: 'LAFC',                   venue: 'H', time: '4:00 PM' }, // Decision Day
+    { date: '2026-11-07', opp: 'LAFC',                   venue: 'H', time: '4:00 PM' }, // Decision Day, won 2-1
+    { date: '2026-11-19', opp: 'Real Salt Lake',         venue: 'H', time: '7:00 PM', comp: 'Wild Card' },
   ];
 
   // Sunderland AFC — Premier League 2026/27. Base list from the June
@@ -1130,6 +1163,21 @@ the packs of yellow-eyed wolves that are also
   // go straight to the Round of 16. Add those by hand once drawn.
   // Ground names follow the Yeovil convention: traditional name where
   // one exists, sponsor-only names marked.
+  //
+  // Updated 8 Nov 2026 with the November and December TV/Europa moves
+  // (safc.com, premierleague.com, liverpoolfc.com, newcastleunited.com,
+  // footballwebpages.co.uk):
+  //   Chelsea (h)   Sat Nov 7  -> Sun Nov 8, 2pm UK
+  //   Spurs (h)     Sat Nov 28 -> Sun Nov 29, 2:05pm UK
+  //   Liverpool (a) Wed Dec 2 stays, now 7:30pm UK
+  //   Newcastle (a) Sat Dec 5  -> Sun Dec 6, 2pm UK
+  //   Forest (h)    Sat Dec 12 -> Sun Dec 13, 2pm UK
+  //   Palace (h)    Sat Dec 19 -> Sun Dec 20, 2pm UK
+  // Boxing Day onward still carries release-day times; the next TV
+  // batch is due the week of 30 Nov.
+  // Carabao Cup: beat Brentford in Round 4 (28 Oct) and drew Crystal
+  // Palace away in the quarter-finals, week commencing 14 Dec. Day and
+  // kickoff not yet set, so it sits in a window until announced.
   const suGrounds = {
     'AFC Bournemouth':        'Dean Court',
     'Arsenal':                'Emirates Stadium',              // sponsor name only
@@ -1169,17 +1217,19 @@ the packs of yellow-eyed wolves that are also
     { date: '2026-10-18', opp: 'AFC Bournemouth',        venue: 'A', time: '6:00 AM' },  // moved (Europa League)
     { date: '2026-10-22', opp: 'Lech Poznań',            venue: 'A', time: '9:45 AM',  comp: 'UEL' },
     { date: '2026-10-25', opp: 'Leeds United',           venue: 'H', time: '9:30 AM' },  // moved for TV; DST gap
+    { date: '2026-10-28', opp: 'Brentford',              venue: 'H', time: '12:45 PM', comp: 'League Cup' }, // DST gap; won
     { date: '2026-10-31', opp: 'Coventry City',          venue: 'A', time: '8:00 AM' },  // DST gap
     { date: '2026-11-05', opp: 'Dinamo Zagreb',          venue: 'H', time: '12:00 PM', comp: 'UEL' },
-    { date: '2026-11-07', opp: 'Chelsea',                venue: 'H', time: '7:00 AM' },
+    { date: '2026-11-08', opp: 'Chelsea',                venue: 'H', time: '6:00 AM' },  // moved (Europa League)
     { date: '2026-11-21', opp: 'Aston Villa',            venue: 'A', time: '7:00 AM' },
     { date: '2026-11-26', opp: 'Jagiellonia Białystok',  venue: 'H', time: '12:00 PM', comp: 'UEL' },
-    { date: '2026-11-28', opp: 'Tottenham Hotspur',      venue: 'H', time: '7:00 AM' },
-    { date: '2026-12-02', opp: 'Liverpool',              venue: 'A', time: '12:00 PM' },
-    { date: '2026-12-05', opp: 'Newcastle United',       venue: 'A', time: '7:00 AM' },
+    { date: '2026-11-29', opp: 'Tottenham Hotspur',      venue: 'H', time: '6:05 AM' },  // moved (Europa League)
+    { date: '2026-12-02', opp: 'Liverpool',              venue: 'A', time: '11:30 AM' }, // TV time change
+    { date: '2026-12-06', opp: 'Newcastle United',       venue: 'A', time: '6:00 AM' },  // moved for TV
     { date: '2026-12-10', opp: 'AC Milan',               venue: 'A', time: '12:00 PM', comp: 'UEL' },
-    { date: '2026-12-12', opp: 'Nottingham Forest',      venue: 'H', time: '7:00 AM' },
-    { date: '2026-12-19', opp: 'Crystal Palace',         venue: 'H', time: '7:00 AM' },
+    { date: '2026-12-13', opp: 'Nottingham Forest',      venue: 'H', time: '6:00 AM' },  // moved (Europa League)
+    { date: '2026-12-15', dateEnd: '2026-12-17', opp: 'Crystal Palace', venue: 'A', time: null, comp: 'League Cup' }, // QF window
+    { date: '2026-12-20', opp: 'Crystal Palace',         venue: 'H', time: '6:00 AM' },  // moved for TV
     { date: '2026-12-26', opp: 'Everton',                venue: 'A', time: '7:00 AM' },
     { date: '2026-12-30', opp: 'Manchester United',      venue: 'A', time: '12:00 PM' },
     { date: '2027-01-02', opp: 'Hull City',              venue: 'H', time: '7:00 AM' },
@@ -1216,12 +1266,13 @@ the packs of yellow-eyed wolves that are also
   // a few weeks ahead). The widget shows the window, e.g. "Dec 4-6",
   // until you replace it with the real date, time and no dateEnd.
 
-  // Sunderland Women — Women's Super League 2 2026/27 plus
+  // Sunderland AFC Women — Women's Super League 2 2026/27 plus
   // the Subway Players Cup (Women's League Cup) league phase.
   // League list from the 2026-27 WSL 2 Wikipedia article and
   // footballwebpages.co.uk; cup dates, kickoffs and venues from
-  // wslfootball.com. Checked 11 Oct 2026. Kickoffs are release-day
-  // times and may move for TV.
+  // wslfootball.com. Checked 11 Oct 2026; Nov-Dec dates and kickoffs
+  // re-checked against footballwebpages.co.uk on 8 Nov 2026 (no
+  // changes). Kickoffs are release-day times and may move for TV.
   // Still to come once drawn: Players Cup knockouts if they finish in
   // the top eight of the league phase (QF 13-14 Jan, SF 10-11 Feb,
   // final 13-14 Mar 2027), and the Women's FA Cup, not yet drawn
@@ -1278,11 +1329,14 @@ the packs of yellow-eyed wolves that are also
   // 11 Oct 2026. League Cup run ended in round 2 (lost 1-0 at Hibs).
   // Saturday 3pm kickoffs are release-day times; Friday and midweek
   // games are announced individually.
-  // Still to come once drawn: the Scottish Cup. Championship clubs
-  // normally enter at the third round in late November (there is a
-  // free Saturday on 28 Nov); the fourth round is Sat 16 Jan 2027,
-  // also a free league weekend.
+  // Scottish Cup (updated 8 Nov 2026): drawn away to Elgin City in the
+  // third round, Sat 28 Nov, 3pm UK (scottishfa.co.uk draw; date and
+  // time from footballwebpages.co.uk and Sky Sports). If they win, the
+  // fourth round is Sat 16 Jan 2027, a free league weekend.
+  // Challenge Cup: won 3-0 at Edinburgh City in the round of 32 on
+  // 3 Nov. Next-round date not found yet; add it by hand.
   const ptGrounds = {
+    'Elgin City':                   'Borough Briggs',
     'Arbroath':                     'Gayfield Park',
     'Ayr United':                   'Somerset Park',
     'Dunfermline Athletic':         'East End Park',
@@ -1311,6 +1365,7 @@ the packs of yellow-eyed wolves that are also
     { date: '2026-11-07', opp: 'Queen\'s Park', venue: 'A', time: '7:00 AM' },
     { date: '2026-11-14', opp: 'Inverness Caledonian Thistle', venue: 'H', time: '7:00 AM' },
     { date: '2026-11-21', opp: 'Raith Rovers', venue: 'A', time: '7:00 AM' },
+    { date: '2026-11-28', opp: 'Elgin City', venue: 'A', time: '7:00 AM', comp: 'Scottish Cup' },
     { date: '2026-12-05', opp: 'Dunfermline Athletic', venue: 'H', time: '7:00 AM' },
     { date: '2026-12-12', opp: 'Arbroath', venue: 'A', time: '7:00 AM' },
     { date: '2026-12-19', opp: 'Ayr United', venue: 'H', time: '7:00 AM' },
@@ -1341,8 +1396,9 @@ the packs of yellow-eyed wolves that are also
   // German kickoffs convert to Pacific with the same DST rule as the
   // UK games (Germany changes clocks on the same days), minus 9 hours
   // most of the year, minus 8 in the gap windows. No European games
-  // this season. If they beat Dortmund, add the Pokal round of 16
-  // by hand once it is drawn.
+  // this season. Out of the DFB-Pokal: lost 3-2 at Dortmund in the
+  // second round on 27 Oct. Re-checked 8 Nov 2026 against
+  // anstosszeiten.de: matchdays 12-17 are still unscheduled windows.
   const wbGrounds = {
     'Bayer Leverkusen':          'BayArena',
     'Bayern Munich':             'Allianz Arena',              // sponsor name only
@@ -1408,6 +1464,11 @@ the packs of yellow-eyed wolves that are also
   // Home games are usually at Weserstadion Platz 11; a few big ones
   // move to the main Weserstadion, so edit the home ground by hand
   // when one is announced.
+  // Checked again 8 Nov 2026: the Union Berlin game (matchday 10) is
+  // still only a window; sources disagree on the day (Sat 14 or Sun
+  // 15 Nov), so it stays as a window until the DFB confirms it. The
+  // Pokal result at Mainz on 31 Oct could not be confirmed; if they
+  // won, the quarter-finals are 10-11 Mar 2027.
   const wwGrounds = {
     'Bayer Leverkusen':     'Ulrich-Haberland-Stadion',
     'Bayern Munich':        'FC Bayern Campus',
@@ -1453,6 +1514,58 @@ the packs of yellow-eyed wolves that are also
     { date: '2027-04-30', dateEnd: '2027-05-03', opp: '1. FC Köln', venue: 'H', time: null },
     { date: '2027-05-07', dateEnd: '2027-05-10', opp: 'Eintracht Frankfurt', venue: 'A', time: null },
     { date: '2027-05-23', opp: '1. FC Nürnberg', venue: 'H', time: null }, // final matchday, all kick off together; time TBC
+  ];
+
+  // ── New clubs (added 8 Nov 2026) ────────────────────────
+  // Same conventions as the blocks above.
+
+  // Oakland Roots SC — USL Championship 2026. The regular season ended
+  // 24 Oct with a 3-2 loss at Sacramento Republic, which left Oakland
+  // 10th in the West and out of the playoffs, so the widget shows
+  // "Season complete". Only the final game is listed. Replace this
+  // with the 2027 schedule when the USL releases it (the 2026 list
+  // came out in mid-December).
+  const orGrounds = {
+    'Sacramento Republic FC':  'Heart Health Park',          // sponsor name only
+  };
+
+  const orFixtures = [
+    { date: '2026-10-24', opp: 'Sacramento Republic FC', venue: 'A', time: '7:00 PM' }, // lost 3-2; season over
+  ];
+
+  // SC Heerenveen — Eredivisie 2026/27 plus the KNVB Beker. Listed
+  // from today (8 Nov) onward only, since the widget never shows past
+  // games. The Eredivisie has published exact kickoffs through round 21
+  // (31 Jan); rounds 22 onward are due at the end of December, so add
+  // them then. Dutch kickoffs convert to Pacific the same way as the
+  // German ones: minus 9 hours, minus 8 in the DST gap windows.
+  // Sources: pouletips.nl (full list), cross-checked with sporza.be,
+  // ziggo.nl and footballwebpages.co.uk for rounds 12-17. Rounds 18-21
+  // are pouletips.nl only, with the AZ date also matched on
+  // voetbalwedden.net.
+  // KNVB Beker: won 2-0 at Excelsior Maassluis in round 1 (28 Oct);
+  // round 2 at home to amateurs De Treffers, Wed 2 Dec, 18:45 CET
+  // (voetbalnieuws.nl). The round of 16 is in January if they win.
+  const hvGrounds = {
+    'FC Groningen':            'Euroborg',
+    'Fortuna Sittard':         'Fortuna Sittard Stadion',
+    'FC Utrecht':              'Stadion Galgenwaard',
+    'AZ':                      'AFAS Stadion',               // sponsor name only
+    'FC Twente':               'De Grolsch Veste',           // sponsor name only
+  };
+
+  const hvFixtures = [
+    { date: '2026-11-08', opp: 'Feyenoord',        venue: 'H', time: '3:15 AM' },
+    { date: '2026-11-21', opp: 'FC Groningen',     venue: 'A', time: '12:00 PM' },
+    { date: '2026-11-29', opp: 'Fortuna Sittard',  venue: 'A', time: '5:30 AM' },
+    { date: '2026-12-02', opp: 'De Treffers',      venue: 'H', time: '9:45 AM', comp: 'KNVB Beker' },
+    { date: '2026-12-06', opp: 'SC Cambuur',       venue: 'H', time: '3:15 AM' },  // Frisian derby
+    { date: '2026-12-12', opp: 'Go Ahead Eagles',  venue: 'H', time: '9:45 AM' },
+    { date: '2026-12-19', opp: 'FC Utrecht',       venue: 'A', time: '12:00 PM' },
+    { date: '2027-01-09', opp: 'AZ',               venue: 'A', time: '12:00 PM' },
+    { date: '2027-01-15', opp: 'Sparta Rotterdam', venue: 'H', time: '11:00 AM' },
+    { date: '2027-01-23', opp: 'FC Twente',        venue: 'A', time: '11:00 AM' },
+    { date: '2027-01-31', opp: 'Ajax',             venue: 'H', time: '3:15 AM' },
   ];
 
   function renderNextMatch(fixtures, prefix, homeGround, groundsMap) {
@@ -1530,11 +1643,13 @@ the packs of yellow-eyed wolves that are also
   renderNextMatch(ptFixtures, 'pt', 'Firhill Stadium', ptGrounds);
   renderNextMatch(wbFixtures, 'wb', 'Weserstadion', wbGrounds);
   renderNextMatch(wwFixtures, 'ww', 'Weserstadion Platz 11', wwGrounds);
+  renderNextMatch(orFixtures, 'or', 'Oakland Coliseum', orGrounds);
+  renderNextMatch(hvFixtures, 'hv', 'Abe Lenstra Stadion', hvGrounds);
 
   // ── Countdown ────────────────────────────────────────────
   // EDIT THESE TWO LINES ONLY. Date is YYYY-MM-DD.
-  const countdownDate  = '2026-10-14';
-  const countdownEvent = 'Move to Moses Lake';
+  const countdownDate  = '2026-11-26';
+  const countdownEvent = 'Thanksgiving';
 
   (function renderCountdown() {
     // Both dates are treated as plain calendar days in UTC so that
